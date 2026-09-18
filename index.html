@@ -534,6 +534,13 @@ footer p{color:#666;font-size:.82rem;margin-top:12px}
 <button id="toTop">↑</button>
 <button id="cinemaBtn" onclick="toggleCinema()">🎬 CINE</button>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script>
+// ☁️ FASE 2 — pega aquí tu config de Firebase Web y pon ON:true para datos en vivo.
+// Se consigue en: Firebase Console → Configuración → Tus apps → Web (ver sylenmc-bot/README.md)
+var SYLENMC_CLOUD={ON:false,apiKey:"PEGA_AQUI",authDomain:"TU-PROYECTO.firebaseapp.com",databaseURL:"https://TU-PROYECTO-default-rtdb.firebaseio.com",projectId:"TU-PROYECTO"};
+</script>
 <script>
 let LANG=localStorage.getItem('sylenmc-lang')||'es';
 const TPLS=[
@@ -650,19 +657,35 @@ $('btnCheckDc').onclick=async()=>{const id=$('fDcId').value.trim();if(!id)return
  }catch(e){$('dcStatus').textContent='⚠️ Sin conexión a Lanyard: pega su foto manualmente abajo.'}
 };
 $('btnSaveSotm').onclick=()=>{if(!ADMIN)return;
+ if(CLOUD){const id=$('fDcId').value.trim();if(!id)return toast('✏️ ID?');cloudCmd('s!staffmes <@'+id+'>');return}
  DB.sotm={mc:$('fMc').value.trim(),dcId:$('fDcId').value.trim(),dcName:$('fDcName').value.trim(),dcAv:$('fDcAv').value.trim(),deco:$('fDeco').value,pts:+$('fPts').value||0};
  if(DB.sotm.mc){DB.points[DB.sotm.mc]=DB.sotm.pts}
  DB.log.unshift('👑 '+new Date().toLocaleString()+' — Staff del Mes: '+(DB.sotm.mc||'?'));
  saveDB(DB);renderSotm();renderBoard();toast(LANG==='en'?'Saved ✅':'Guardado ✅')};
 // Puntos
 function movePts(sign){if(!ADMIN)return;const n=$('pName').value.trim();const a=+$('pAmt').value||0;if(!n||!a)return toast('✏️?');
+ if(CLOUD){cloudCmd('s!'+(sign>0?'dar ':'quitar ')+n+' '+a);return}
  DB.points[n]=(DB.points[n]||0)+sign*a;
  DB.log.unshift((sign>0?'+':'−')+a+' pts → '+n+' ('+new Date().toLocaleString()+')');
  saveDB(DB);renderBoard();if(DB.sotm&&DB.sotm.mc===n){DB.sotm.pts=DB.points[n];saveDB(DB);renderSotm()}$('pName').value='';
 }
 $('btnPAdd').onclick=()=>movePts(1);$('btnPSub').onclick=()=>movePts(-1);
-$('btnPClear').onclick=()=>{if(!ADMIN||!confirm('¿Reiniciar puntos?'))return;DB.points={};DB.log.unshift('🗑 Puntos reiniciados ('+new Date().toLocaleString()+')');saveDB(DB);renderBoard()};
+$('btnPClear').onclick=()=>{if(!ADMIN)return;if(CLOUD)return toast(LANG==='en'?'Reset from the bot':'Reinicia desde el bot');if(!confirm('¿Reiniciar puntos?'))return;DB.points={};DB.log.unshift('🗑 Puntos reiniciados ('+new Date().toLocaleString()+')');saveDB(DB);renderBoard()};
 renderSotm();
+
+// ---- NUBE (Firebase en vivo, fase 2: bot + web) ----
+let CLOUD=false;
+function cloudCmd(t){navigator.clipboard.writeText(t).then(()=>toast(LANG==='en'?'Command copied, paste it in Discord 📋':'Comando copiado, pégalo en Discord 📋'))}
+try{
+ if(typeof SYLENMC_CLOUD!=='undefined'&&SYLENMC_CLOUD.ON&&typeof firebase!=='undefined'){
+  firebase.initializeApp(SYLENMC_CLOUD);CLOUD=true;
+  const cdb=firebase.database();
+  cdb.ref('sotm').on('value',s=>{if(s.exists()&&s.val()){DB.sotm=s.val();saveDB(DB);renderSotm()}});
+  cdb.ref('points').on('value',s=>{if(s.exists()){DB.points=s.val()||{};saveDB(DB);renderBoard();if(DB.sotm&&DB.sotm.mc&&DB.points[DB.sotm.mc]!=null){DB.sotm.pts=DB.points[DB.sotm.mc];saveDB(DB);renderSotm()}}});
+  cdb.ref('log').limitToLast(30).on('value',s=>{if(s.exists()){const v=Object.values(s.val());DB.log=v.map(x=>(x&&x.text)||x).reverse();saveDB(DB);renderBoard()}});
+  document.querySelectorAll('.admin-note').forEach(el=>{el.textContent=LANG==='en'?'🟢 Live mode: data comes from Discord/Firebase. The admin buttons copy the bot command to run in Discord.':'🟢 Modo en vivo: los datos vienen de Discord/Firebase. Los botones del admin copian el comando para ejecutarlo en Discord.'});
+ }
+}catch(e){CLOUD=false}
 
 // ---- Anti-inspección (disuasorio: bloquea F12, Ctrl+U, clic derecho) ----
 document.addEventListener('keydown',e=>{
