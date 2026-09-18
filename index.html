@@ -610,7 +610,7 @@ function saveDB(d){localStorage.setItem(DBk,JSON.stringify(d))}
 let DB=loadDB();
 function mcHead(n){return 'https://minotar.net/helm/'+encodeURIComponent(n)+'/100.png'}
 function renderSotm(){const s=DB.sotm;if(!s)return;
- document.getElementById('sotmMcNick').textContent=s.mc||'—';
+ document.getElementById('sotmMcNick').textContent=(s.mc||'—')+(s.platform==='bedrock'?' 🎮':'');
  document.getElementById('sotmDcName').textContent=(s.dcName?'@'+s.dcName:'—')+(s.dcId?' • '+s.dcId:'');
  document.getElementById('sotmPoints').textContent=s.pts||0;
  document.getElementById('sotmSkin').src=mcHead(s.mc||'MHF_Steve');
@@ -620,7 +620,7 @@ function renderSotm(){const s=DB.sotm;if(!s)return;
  const d=new Date();document.getElementById('sotmMonth').textContent=d.toLocaleString(LANG==='en'?'en-US':'es-ES',{month:'long',year:'numeric'});
 }
 function renderBoard(){const b=document.getElementById('pointsBoard');if(!b)return;const num=v=>(v&&typeof v==='object'?(v.pts||0):(v||0));const e=Object.entries(DB.points).sort((a,c)=>num(c[1])-num(a[1]));
- b.innerHTML=e.length?e.map(([k,v])=>{const nm=(v&&(v.mc||v.dc))||k;const skin=(v&&v.mc)||k;return `<div class="pb-row"><img loading="lazy" src="${mcHead(nm)}" onerror="this.src='https://minotar.net/helm/MHF_Steve/100.png'" alt=""><span>${nm}</span><b>${(v&&v.pts)||v||0} pts</b></div>`}).join(''):`<p style="color:#666;font-size:.82rem">${LANG==='en'?'No points yet. Add members from the admin panel.':'Aún no hay puntos. Agrega miembros desde el panel admin.'}</p>`;
+ b.innerHTML=e.length?e.map(([k,v])=>{const nm=(v&&(v.mc||v.dc))||k;const skin=(v&&v.mc)||k;const bed=v&&v.platform==='bedrock';return `<div class="pb-row"><img loading="lazy" src="${mcHead(nm)}" onerror="this.src='https://minotar.net/helm/MHF_Steve/100.png'" alt=""><span>${nm}${bed?' 🎮':''}</span><b>${(v&&v.pts)||v||0} pts</b></div>`}).join(''):`<p style="color:#666;font-size:.82rem">${LANG==='en'?'No points yet. Add members from the admin panel.':'Aún no hay puntos. Agrega miembros desde el panel admin.'}</p>`;
  const log=document.getElementById('ptsLog');if(log)log.innerHTML=(DB.log||[]).slice(0,30).map(x=>`<div>${x}</div>`).join('')||(LANG==='en'?'No movements yet.':'Sin movimientos aún.');
 }
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.remove('hidden');setTimeout(()=>t.classList.add('hidden'),2400)}
@@ -680,11 +680,11 @@ try{
   const supa=supabase.createClient(SYLENMC_CLOUD.URL,SYLENMC_CLOUD.ANON);CLOUD=true;
   async function pull(){try{
    const p=await supa.from('points').select('*');
-   if(!p.error&&p.data){DB.points={};p.data.forEach(r=>{DB.points[r.id]={mc:r.mc,dc:r.dc,premium:r.premium,pts:r.pts}});saveDB(DB);renderBoard();
-    if(DB.sotm&&DB.sotm.mc){const f=p.data.find(r=>r.mc===DB.sotm.mc);if(f&&f.pts!=null){DB.sotm.pts=f.pts;saveDB(DB)}}
+   if(!p.error&&p.data){DB.points={};p.data.forEach(r=>{DB.points[r.id]={mc:r.mc,dc:r.dc,premium:r.premium,pts:r.pts,platform:r.platform||'java'}});saveDB(DB);renderBoard();
+    if(DB.sotm&&DB.sotm.mc){const want=String(DB.sotm.mc).toLowerCase().trim();const f=p.data.find(r=>String(r.mc||'').toLowerCase().trim()===want);if(f&&f.pts!=null){DB.sotm.pts=f.pts;if(f.platform)DB.sotm.platform=f.platform;saveDB(DB)}}
     renderSotm()}
    const s=await supa.from('sotm').select('*').eq('id',1).maybeSingle();
-   if(!s.error&&s.data&&s.data.mc){DB.sotm={mc:s.data.mc,dcId:s.data.dc_id,dcName:s.data.dc_name,dcAv:s.data.dc_av,deco:s.data.deco||'deco-gold',pts:s.data.pts||0};saveDB(DB);renderSotm()}
+   if(!s.error&&s.data&&s.data.mc){DB.sotm={mc:s.data.mc,dcId:s.data.dc_id,dcName:s.data.dc_name,dcAv:s.data.dc_av,deco:s.data.deco||'deco-gold',pts:s.data.pts||0,platform:s.data.platform||'java'};saveDB(DB);renderSotm()}
    const l=await supa.from('log').select('text').order('id',{ascending:false}).limit(30);
    if(!l.error&&l.data){DB.log=l.data.map(r=>r.text);saveDB(DB);renderBoard()}
   }catch(e){}}
