@@ -189,6 +189,64 @@ footer p{color:#666;font-size:.82rem;margin-top:12px}
 @keyframes letterIn{from{opacity:0;letter-spacing:.6em;filter:blur(10px)}to{opacity:1;letter-spacing:.25em;filter:none}}
 @keyframes enterOut{0%{opacity:1}80%{opacity:1}100%{opacity:0;visibility:hidden}}
 .entrance small{font-family:'JetBrains Mono',monospace;letter-spacing:.4em;color:#666;font-size:.7rem;text-transform:uppercase}
+
+/* LANG SWITCH */
+.lang-sw{display:inline-flex;border:1px solid var(--border);border-radius:100px;overflow:hidden;margin-left:4px}
+.lang-sw button{background:transparent;border:none;color:var(--muted);font-weight:800;font-size:.72rem;padding:9px 13px;cursor:pointer;letter-spacing:.1em}
+.lang-sw button.active{background:#fff;color:#000}
+
+/* STAFF DEL MES */
+.sotm-wrap{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:820px){.sotm-wrap{grid-template-columns:1fr}}
+.sotm-card{background:linear-gradient(180deg,#17171f,#0b0b10);border:1px solid #3a3a2a;border-radius:24px;padding:36px 28px;text-align:center;position:relative;overflow:hidden;box-shadow:0 0 60px rgba(232,193,90,.12)}
+.sotm-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#e8c15a,transparent)}
+.sotm-crown{font-size:2.6rem;animation:iconFloat 3s ease-in-out infinite}
+.sotm-faces{display:flex;justify-content:center;gap:26px;margin:18px 0 14px;flex-wrap:wrap}
+.sotm-mc img{width:96px;height:96px;border-radius:20px;background:#000;border:1px solid #444;image-rendering:pixelated}
+.sotm-mc span,.sotm-dc span{display:block;margin-top:8px;font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted)}
+.dc-frame{width:104px;height:104px;border-radius:50%;padding:4px;background:conic-gradient(#e8c15a,#fff,#e8c15a,#8a6a1f,#e8c15a)}
+.dc-frame img{width:100%;height:100%;border-radius:50%;background:#111;display:block}
+.deco-neon{background:conic-gradient(#2effa1,#5aa8ff,#a06bff,#2effa1)}
+.deco-ice{background:conic-gradient(#bdf3ff,#fff,#5aa8ff,#bdf3ff)}
+.deco-fire{background:conic-gradient(#ff2d55,#e8c15a,#ff7a2a,#ff2d55)}
+.sotm-card h3{font-size:1.5rem;font-weight:800}
+.sotm-dcname{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:.85rem;margin-top:4px}
+.sotm-points{margin-top:14px;font-size:1rem}.sotm-points b{font-size:2rem;background:linear-gradient(180deg,#fff,#e8c15a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sotm-month{margin-top:8px;color:var(--muted);font-size:.78rem;letter-spacing:.15em;text-transform:uppercase}
+.sotm-side{background:linear-gradient(180deg,#101016,#0a0a0f);border:1px solid var(--border);border-radius:24px;padding:28px}
+.sotm-side h4{margin-bottom:8px}.sotm-side p{color:var(--muted);font-size:.85rem;margin-bottom:16px}
+.points-board{display:flex;flex-direction:column;gap:8px;max-height:320px;overflow:auto}
+.pb-row{display:flex;align-items:center;gap:10px;background:#0d0d13;border:1px solid var(--border);border-radius:12px;padding:10px 14px;font-size:.85rem}
+.pb-row img{width:28px;height:28px;border-radius:8px;image-rendering:pixelated;background:#000}
+.pb-row b{margin-left:auto;background:#fff;color:#000;border-radius:100px;padding:2px 12px;font-size:.78rem}
+
+/* ADMIN */
+#adminFab{position:fixed;bottom:88px;right:24px;width:52px;height:52px;border-radius:50%;background:#15151c;border:1px solid #444;color:#fff;font-size:1.2rem;cursor:pointer;z-index:200;transition:.3s}
+#adminFab:hover{border-color:#fff;box-shadow:var(--glow);transform:scale(1.08)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal.hidden,.hidden{display:none!important}
+.modal-box{background:#111118;border:1px solid #333;border-radius:20px;padding:32px;width:min(420px,100%);text-align:center;box-shadow:var(--glow)}
+.modal-box h3{margin-bottom:8px}.modal-box p{color:var(--muted);font-size:.85rem;margin-bottom:16px}
+.modal-box input,.admin-card input,.admin-card select{width:100%;background:#000;border:1px solid #2a2a33;border-radius:12px;padding:13px 16px;color:#fff;font-size:.88rem;outline:none;margin:6px 0 12px;font-family:inherit}
+.modal-box input:focus,.admin-card input:focus{border-color:#fff}
+.modal-box label,.admin-card label{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:block;text-align:left;margin-top:8px}
+.modal-err{color:#ff8095!important}
+.modal-btns{display:flex;gap:10px;justify-content:center;margin-top:8px;flex-wrap:wrap}
+.admin-panel{position:fixed;inset:5vh 50%;transform:translateX(-50%);width:min(920px,94vw);max-height:90vh;overflow:auto;background:#0b0b10;border:1px solid #444;border-radius:22px;z-index:1001;padding:28px;box-shadow:0 0 80px rgba(0,0,0,.8)}
+.admin-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:760px){.admin-grid{grid-template-columns:1fr}}
+.admin-card{background:#111118;border:1px solid var(--border);border-radius:16px;padding:20px}
+.admin-card h4{margin-bottom:10px}
+.mini-btn{background:#1c1c26;border:1px solid #444;color:#fff;font-weight:800;padding:10px 16px;border-radius:12px;cursor:pointer;font-size:.8rem;transition:.25s}
+.mini-btn:hover{background:#fff;color:#000}
+.mini-btn.danger{border-color:rgba(255,45,85,.4);color:#ff8095;width:100%;margin-top:10px}
+.preview{width:72px;height:72px;border-radius:14px;background:#000;border:1px solid #444;image-rendering:pixelated;margin-top:6px}
+.status{font-size:.78rem;color:var(--muted);min-height:1.2em}
+.pts-log{display:flex;flex-direction:column;gap:6px;max-height:180px;overflow:auto;font-size:.78rem;color:#bbb}
+.pts-log div{background:#000;border:1px solid #222;border-radius:8px;padding:8px 10px}
+.admin-note{margin-top:16px;color:#666;font-size:.75rem;text-align:center}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#fff;color:#000;font-weight:800;font-size:.82rem;padding:13px 24px;border-radius:100px;z-index:2000;box-shadow:0 0 40px rgba(255,255,255,.35)}
 </style>
 </head>
 <body>
@@ -212,34 +270,36 @@ footer p{color:#666;font-size:.82rem;margin-top:12px}
     <div><b>SYLENMC NETWORK</b><small>STAFF PAGE</small></div>
   </div>
   <div class="nav-links">
-    <a href="#inicio" class="active">Inicio</a>
-    <a href="#guias">Guías</a>
-    <a href="#rangos">Rangos</a>
-    <a href="#plantillas">Plantillas</a>
-    <a href="#canales">Canales</a>
-    <a href="#reglas">Reglas Staff</a>
+    <a href="#inicio" class="active" data-es="Inicio" data-en="Home">Inicio</a>
+    <a href="#guias" data-es="Guías" data-en="Guides">Guías</a>
+    <a href="#rangos" data-es="Rangos" data-en="Ranks">Rangos</a>
+    <a href="#plantillas" data-es="Plantillas" data-en="Templates">Plantillas</a>
+    <a href="#canales" data-es="Canales" data-en="Channels">Canales</a>
+    <a href="#staffmes" data-es="Staff del Mes" data-en="Staff of the Month">Staff del Mes</a>
+    <a href="#reglas" data-es="Reglas Staff" data-en="Staff Rules">Reglas Staff</a>
     <a href="https://discord.gg/uQFkw4ssKJ" target="_blank" rel="noopener" class="btn-discord">💎 Discord</a>
+    <span class="lang-sw"><button id="langES" class="active">ES</button><button id="langEN">EN</button></span>
   </div>
 </nav>
 
 <header id="inicio">
   <div class="hero-bg"></div>
   <div class="hero-content">
-    <div class="badge"><span class="pulse"></span> SylenMC Network • Staff Team Oficial</div>
+    <div class="badge"><span class="pulse"></span> <span data-es="SylenMC Network • Staff Team Oficial" data-en="SylenMC Network • Official Staff Team">SylenMC Network • Staff Team Oficial</span></div>
     <h1 class="hero-title">
       <span class="black">SYLEN</span><span class="outline">MC</span><br>
       <span class="gold">NETWORK</span> <em>STAFF</em>
     </h1>
     <div class="typewriter" id="typewriter"></div>
     <div class="hero-btns">
-      <a href="#plantillas" class="btn btn-white">📋 Ver Plantillas</a>
-      <a href="#guias" class="btn btn-ghost">📖 Guías del Staff</a>
+      <a href="#plantillas" class="btn btn-white" data-es="📋 Ver Plantillas" data-en="📋 View Templates">📋 Ver Plantillas</a>
+      <a href="#guias" class="btn btn-ghost" data-es="📖 Guías del Staff" data-en="📖 Staff Guides">📖 Guías del Staff</a>
     </div>
     <div class="hero-stats">
-      <div class="stat"><h3 data-count="9">0</h3><p>Plantillas</p></div>
-      <div class="stat"><h3 data-count="5">0</h3><p>Categorías</p></div>
-      <div class="stat"><h3 data-count="20">0</h3><p>Canales Staff</p></div>
-      <div class="stat"><h3>24/7</h3><p>Soporte</p></div>
+      <div class="stat"><h3 data-count="9">0</h3><p data-es="Plantillas" data-en="Templates">Plantillas</p></div>
+      <div class="stat"><h3 data-count="5">0</h3><p data-es="Categorías" data-en="Categories">Categorías</p></div>
+      <div class="stat"><h3 data-count="30">0</h3><p data-es="Canales Staff" data-en="Staff Channels">Canales Staff</p></div>
+      <div class="stat"><h3>24/7</h3><p data-es="Soporte" data-en="Support">Soporte</p></div>
     </div>
   </div>
   <div class="scroll-hint"><div class="mouse"></div>scroll</div>
@@ -249,23 +309,55 @@ footer p{color:#666;font-size:.82rem;margin-top:12px}
 
 <section id="guias">
   <div class="reveal">
-    <div class="sec-label">01 — Centro de conocimiento</div>
-    <h2 class="sec-title">Guías <em>del Staff</em></h2>
-    <p class="sec-sub">Todo lo que un miembro del Staff de <b style="color:#fff">SylenMC Network</b> debe dominar. Pasa el cursor para iluminar cada módulo. Estilo cinematográfico negro total.</p>
+    <div class="sec-label" data-es="01 — Centro de conocimiento" data-en="01 — Knowledge base">01 — Centro de conocimiento</div>
+    <h2 class="sec-title"><span data-es="Guías " data-en="Staff ">Guías </span><em data-es="del Staff" data-en="Guides">del Staff</em></h2>
+    <p class="sec-sub" data-es="Todo lo que un miembro del Staff de SylenMC Network debe dominar. Pasa el cursor para iluminar cada módulo." data-en="Everything a SylenMC Network Staff member must master. Hover to highlight each module.">Todo lo que un miembro del Staff de <b style="color:#fff">SylenMC Network</b> debe dominar. Pasa el cursor para iluminar cada módulo.</p>
   </div>
   <div class="grid">
-    <div class="guide-card reveal"><span class="tag">Esencial</span><div class="icon">📜</div><h3>Guía General</h3><p>Manual completo de conducta, jerarquía, ética y responsabilidades del Staff de SylenMC dentro del juego y de Discord. Todo miembro debe ser ejemplo para la comunidad: lenguaje respetuoso, decisiones justas y presencia activa.</p><ul><li>Jerarquía: Owner › Founder › Head Mánager › ... › Helper / Soporte Dc</li><li>Mantén conducta ejemplar siempre, incluso sin rango visible</li><li>Usa los comandos solo cuando el caso lo requiera y con pruebas</li><li>Confidencialidad total: nada interno sale del Staff</li><li>Prohibido sancionar sin pruebas o por motivos personales</li><li>Apoya a rangos menores y reporta abusos a un superior</li></ul></div>
-    <div class="guide-card reveal"><span class="tag">Puntos</span><div class="icon">⭐</div><h3>Guía de Puntos</h3><p>Sistema de puntos por actividad y méritos. Tus reportes, castigos correctos y ayuda en tickets suman para ascender. La inactividad resta. Revisión cada mes en ascensos y descensos.</p><ul><li>+1 punto por reporte válido con plantilla completa</li><li>+2 puntos por castigo o revivir correctamente aplicado</li><li>+1 punto por ticket atendido y cerrado correctamente</li><li>Mínimo semanal obligatorio: 10 puntos</li><li>Inactividad sin aviso = puntos negativos y posible descenso</li><li>Ascensos y descensos: revisión mensual del equipo</li></ul></div>
-    <div class="guide-card reveal"><span class="tag">Tickets</span><div class="icon">🎫</div><h3>Guía de Tickets</h3><p>Protocolo completo para atender tickets de ayuda, reportes y apelaciones. Responde rápido, trata con respeto y deja todo registrado para que otro Staff pueda continuar el caso sin preguntar.</p><ul><li>Responde en menos de 10 minutos siempre que sea posible</li><li>Saluda, identifica el problema y pide pruebas si faltan</li><li>Sé cordial, paciente y objetivo, sin discusiones</li><li>No reveles pruebas internas ni decisiones privadas del Staff</li><li>Deriva a un superior si el caso supera tu rango</li><li>Cierra con un resumen claro de la solución aplicada</li></ul></div>
-    <div class="guide-card reveal"><span class="tag">SOTW</span><div class="icon">🏆</div><h3>Guía de Inicio (SOTW)</h3><p>Protocolo para el inicio del mundo: máxima vigilancia contra trampas, evasión, equipos ilegales y caos en el chat. Todo el Staff debe estar conectado y comunicado por llamada.</p><ul><li>Vigila evasión, trampas, autoclic y equipos prohibidos</li><li>Modera el chat: insultos, spam y flood se silencian (Mute)</li><li>Registra cada sanción en vivo con pruebas y hora</li><li>Mantén comunicación por llamada del Staff en todo momento</li><li>No regales objetos ni ventajas a ningún jugador</li><li>Prioriza casos graves antes que dudas simples</li></ul></div>
+    <div class="guide-card reveal"><span class="tag">Esencial</span><div class="icon">📜</div>
+      <h3 data-es="Guía General" data-en="General Guide">Guía General</h3>
+      <p data-es="Manual completo de conducta, jerarquía, ética y responsabilidades del Staff de SylenMC dentro del juego y de Discord. Todo miembro debe ser ejemplo para la comunidad: lenguaje respetuoso, decisiones justas y presencia activa." data-en="Complete manual of conduct, hierarchy, ethics and responsibilities for SylenMC Staff in-game and on Discord. Every member must set an example: respectful language, fair decisions and active presence.">Manual completo de conducta, jerarquía, ética y responsabilidades del Staff de SylenMC dentro del juego y de Discord. Todo miembro debe ser ejemplo para la comunidad: lenguaje respetuoso, decisiones justas y presencia activa.</p>
+      <ul>
+        <li data-es="Jerarquía: Owner › Founder › Head Mánager › ... › Helper / Soporte Dc" data-en="Hierarchy: Owner › Founder › Head Manager › ... › Helper / DC Support">Jerarquía: Owner › Founder › Head Mánager › ... › Helper / Soporte Dc</li>
+        <li data-es="Mantén conducta ejemplar siempre, incluso sin rango visible" data-en="Exemplary conduct at all times, even with no visible rank">Mantén conducta ejemplar siempre, incluso sin rango visible</li>
+        <li data-es="Usa los comandos solo cuando el caso lo requiera y con pruebas" data-en="Use commands only when the case requires it, and with evidence">Usa los comandos solo cuando el caso lo requiera y con pruebas</li>
+        <li data-es="Confidencialidad total: nada interno sale del Staff" data-en="Total confidentiality: nothing internal leaves the Staff">Confidencialidad total: nada interno sale del Staff</li>
+        <li data-es="Prohibido sancionar sin pruebas o por motivos personales" data-en="No sanctions without evidence or for personal reasons">Prohibido sancionar sin pruebas o por motivos personales</li>
+        <li data-es="Apoya a rangos menores y reporta abusos a un superior" data-en="Support lower ranks and report abuse to a superior">Apoya a rangos menores y reporta abusos a un superior</li>
+      </ul>
+    </div>
+    <div class="guide-card reveal"><span class="tag" data-es="Puntos" data-en="Points">Puntos</span><div class="icon">⭐</div>
+      <h3 data-es="Guía de Puntos" data-en="Points Guide">Guía de Puntos</h3>
+      <p data-es="Sistema de puntos por actividad y méritos. Tus reportes, castigos correctos y ayuda en tickets suman para ascender. La inactividad resta. Revisión cada mes en ascensos y descensos." data-en="Points system for activity and merit. Your reports, correct sanctions and ticket help earn promotions. Inactivity subtracts. Monthly review in promotions and demotions.">Sistema de puntos por actividad y méritos. Tus reportes, castigos correctos y ayuda en tickets suman para ascender. La inactividad resta. Revisión cada mes en ascensos y descensos.</p>
+      <ul>
+        <li data-es="+1 punto por reporte válido con plantilla completa" data-en="+1 point per valid report with full template">+1 punto por reporte válido con plantilla completa</li>
+        <li data-es="+2 puntos por castigo o revivir correctamente aplicado" data-en="+2 points per correctly applied sanction or revive">+2 puntos por castigo o revivir correctamente aplicado</li>
+        <li data-es="+1 punto por ticket atendido y cerrado correctamente" data-en="+1 point per ticket handled and closed properly">+1 punto por ticket atendido y cerrado correctamente</li>
+        <li data-es="Mínimo semanal obligatorio: 10 puntos" data-en="Mandatory weekly minimum: 10 points">Mínimo semanal obligatorio: 10 puntos</li>
+        <li data-es="Inactividad sin aviso = puntos negativos y posible descenso" data-en="Unexcused inactivity = negative points and possible demotion">Inactividad sin aviso = puntos negativos y posible descenso</li>
+        <li data-es="Ascensos y descensos: revisión mensual del equipo" data-en="Promotions and demotions: monthly team review">Ascensos y descensos: revisión mensual del equipo</li>
+      </ul>
+    </div>
+    <div class="guide-card reveal"><span class="tag">Tickets</span><div class="icon">🎫</div>
+      <h3 data-es="Guía de Tickets" data-en="Tickets Guide">Guía de Tickets</h3>
+      <p data-es="Protocolo completo para atender tickets de ayuda, reportes y apelaciones. Responde rápido, trata con respeto y deja todo registrado para que otro Staff pueda continuar el caso sin preguntar." data-en="Full protocol for handling help tickets, reports and appeals. Reply fast, treat everyone with respect and log everything so another Staff member can continue the case.">Protocolo completo para atender tickets de ayuda, reportes y apelaciones. Responde rápido, trata con respeto y deja todo registrado para que otro Staff pueda continuar el caso sin preguntar.</p>
+      <ul>
+        <li data-es="Responde en menos de 10 minutos siempre que sea posible" data-en="Reply in under 10 minutes whenever possible">Responde en menos de 10 minutos siempre que sea posible</li>
+        <li data-es="Saluda, identifica el problema y pide pruebas si faltan" data-en="Greet, identify the issue and ask for evidence if missing">Saluda, identifica el problema y pide pruebas si faltan</li>
+        <li data-es="Sé cordial, paciente y objetivo, sin discusiones" data-en="Be friendly, patient and objective, no arguing">Sé cordial, paciente y objetivo, sin discusiones</li>
+        <li data-es="No reveles pruebas internas ni decisiones privadas del Staff" data-en="Never reveal internal evidence or private Staff decisions">No reveles pruebas internas ni decisiones privadas del Staff</li>
+        <li data-es="Deriva a un superior si el caso supera tu rango" data-en="Escalate to a superior if the case exceeds your rank">Deriva a un superior si el caso supera tu rango</li>
+        <li data-es="Cierra con un resumen claro de la solución aplicada" data-en="Close with a clear summary of the applied solution">Cierra con un resumen claro de la solución aplicada</li>
+      </ul>
+    </div>
   </div>
 </section>
 
 <section id="rangos">
   <div class="reveal">
-    <div class="sec-label">02 — Jerarquía oficial</div>
-    <h2 class="sec-title">Rangos <em>del Staff</em></h2>
-    <p class="sec-sub">Jerarquía completa de <b style="color:#fff">SylenMC Network</b> por debajo de <b style="color:#fff">Owner y Founder</b>. De mayor a menor autoridad.</p>
+    <div class="sec-label" data-es="02 — Jerarquía oficial" data-en="02 — Official hierarchy">02 — Jerarquía oficial</div>
+    <h2 class="sec-title"><span data-es="Rangos " data-en="">Rangos </span><em data-es="del Staff" data-en="Staff Ranks">del Staff</em></h2>
+    <p class="sec-sub" data-es="Jerarquía completa de SylenMC Network por debajo de Owner y Founder. De mayor a menor autoridad." data-en="Full SylenMC Network hierarchy below Owner and Founder. From highest to lowest authority.">Jerarquía completa de <b style="color:#fff">SylenMC Network</b> por debajo de <b style="color:#fff">Owner y Founder</b>. De mayor a menor autoridad.</p>
   </div>
   <div class="chan-grid">
     <div class="chan-cat reveal"><h4>👑 Alta Dirección</h4>
@@ -295,15 +387,15 @@ footer p{color:#666;font-size:.82rem;margin-top:12px}
 
 <section id="plantillas">
   <div class="reveal">
-    <div class="sec-label">03 — Reportes y evidencias</div>
-    <h2 class="sec-title">Plantillas <em>oficiales</em></h2>
-    <p class="sec-sub">Usa <b style="color:#fff">obligatoriamente</b> estas plantillas. Presiona <b style="color:#fff">“Copiar”</b> para llevarla a Discord. Las pruebas deben ser claras y relacionadas con el motivo.</p>
-    <div class="searchbar"><input id="search" placeholder="🔍 Buscar plantilla... (ej: mute, evasion, revivir)"></div>
+    <div class="sec-label" data-es="03 — Reportes y evidencias" data-en="03 — Reports and evidence">03 — Reportes y evidencias</div>
+    <h2 class="sec-title"><span data-es="Plantillas " data-en="">Plantillas </span><em data-es="oficiales" data-en="Official Templates">oficiales</em></h2>
+    <p class="sec-sub" data-es="Usa obligatoriamente estas plantillas. Presiona “Copiar” para llevarla a Discord. Las pruebas deben ser claras y relacionadas con el motivo." data-en="These templates are mandatory. Press “Copy” to take it to Discord. Evidence must be clear and related to the reason.">Usa <b style="color:#fff">obligatoriamente</b> estas plantillas. Presiona <b style="color:#fff">“Copiar”</b> para llevarla a Discord. Las pruebas deben ser claras y relacionadas con el motivo.</p>
+    <div class="searchbar"><input id="search" data-es-ph="🔍 Buscar plantilla... (ej: mute, evasion, revivir)" data-en-ph="🔍 Search template... (e.g. mute, evasion, revive)" placeholder="🔍 Buscar plantilla... (ej: mute, evasion, revivir)"></div>
     <div class="tabs" id="tabs">
-      <button class="tab active" data-f="all">Todas</button>
-      <button class="tab" data-f="sancion">Sanciones</button>
-      <button class="tab" data-f="evidencia">Evidencias</button>
-      <button class="tab" data-f="ayuda">Ayuda</button>
+      <button class="tab active" data-f="all" data-es="Todas" data-en="All">Todas</button>
+      <button class="tab" data-f="sancion" data-es="Sanciones" data-en="Sanctions">Sanciones</button>
+      <button class="tab" data-f="evidencia" data-es="Evidencias" data-en="Evidence">Evidencias</button>
+      <button class="tab" data-f="ayuda" data-es="Ayuda" data-en="Help">Ayuda</button>
     </div>
   </div>
   <div class="templates" id="tplGrid"></div>
@@ -311,9 +403,9 @@ footer p{color:#666;font-size:.82rem;margin-top:12px}
 
 <section id="canales">
   <div class="reveal">
-    <div class="sec-label">04 — Estructura del Discord</div>
-    <h2 class="sec-title">Canales <em>del Staff</em></h2>
-    <p class="sec-sub">Organización oficial del servidor de Staff de SylenMC Network.</p>
+    <div class="sec-label" data-es="04 — Estructura del Discord" data-en="04 — Discord structure">04 — Estructura del Discord</div>
+    <h2 class="sec-title"><span data-es="Canales " data-en="">Canales </span><em data-es="del Staff" data-en="Staff Channels">del Staff</em></h2>
+    <p class="sec-sub" data-es="Organización oficial del servidor de Staff de SylenMC Network." data-en="Official SylenMC Network Staff server layout.">Organización oficial del servidor de Staff de SylenMC Network.</p>
   </div>
   <div class="chan-grid">
     <div class="chan-cat reveal"><h4>⚙️ Gestión</h4>
@@ -328,24 +420,106 @@ footer p{color:#666;font-size:.82rem;margin-top:12px}
     <div class="chan-cat reveal"><h4>💎 General Staff</h4>
       <div class="chan"><span>💎</span> #┃chat-staff</div><div class="chan"><span>🪪</span> #┃presentaciones</div><div class="chan"><span>‼️</span> #┃inactividad</div><div class="chan"><span>💡</span> #┃sugerencias</div><div class="chan"><span>🎮</span> #┃comandos</div><div class="chan"><span>🔥</span> #┃notas</div><div class="chan"><span>🔥</span> #┃entrenador</div>
     </div>
+    <div class="chan-cat reveal"><h4>⚡ Importante</h4>
+      <div class="chan"><span>⚡</span> #┃anuncios</div><div class="chan"><span>⚡</span> #┃reuniones</div><div class="chan"><span>⚡</span> #┃novedades-staff</div><div class="chan"><span>⚡</span> #┃staff-de-la-semana</div><div class="chan"><span>⚡</span> #┃amonestaciones</div><div class="chan"><span>⚡</span> #┃sincronizacion-discord</div><div class="chan"><span>⚡</span> #┃arreglos-staff</div><div class="chan"><span>⚡</span> #┃alertas-anticheat</div>
+    </div>
+    <div class="chan-cat reveal"><h4>🕒 Actividad y Servidor</h4>
+      <div class="chan"><span>🩷</span> #┃entrada-turno</div><div class="chan"><span>🩷</span> #┃salida-turno</div><div class="chan"><span>🩷</span> #┃problemas-servidor</div><div class="chan"><span>🩷</span> #┃sugerencias-servidor</div>
+    </div>
   </div>
 </section>
 
 <section id="reglas">
   <div class="reveal">
-    <div class="sec-label">05 — Código del Staff</div>
-    <h2 class="sec-title">Reglas <em>SylenMC</em></h2>
-    <p class="sec-sub">Incumplir cualquiera de estas normas conlleva <b style="color:#ff8095">sanción directa al Staff</b>, incluyendo demote.</p>
+    <div class="sec-label" data-es="06 — Código del Staff" data-en="06 — Staff code">05 — Código del Staff</div>
+    <h2 class="sec-title"><span data-es="Reglas " data-en="">Reglas </span><em data-en="SylenMC">SylenMC</em></h2>
+    <p class="sec-sub" data-es="Incumplir cualquiera de estas normas conlleva sanción directa al Staff, incluyendo descenso de rango." data-en="Breaking any of these rules leads to a direct Staff sanction, including demotion.">Incumplir cualquiera de estas normas conlleva <b style="color:#ff8095">sanción directa al Staff</b>, incluyendo demote.</p>
   </div>
   <div class="rules reveal">
-    <div class="rule" data-n="01"><h4>🖤 Lealtad al proyecto</h4><p>Está prohibido filtrar información interna, plantillas, pruebas o decisiones del Staff. Todo es confidencial.</p></div>
-    <div class="rule" data-n="02"><h4>⚖️ Imparcialidad total</h4><p>No se sanciona a amigos con favoritismo ni a enemigos con dureza. Toda sanción debe tener prueba válida.</p></div>
-    <div class="rule" data-n="03"><h4>📋 Plantilla obligatoria</h4><p>Todo reporte sin plantilla completa (Nombre / Razón / Pruebas) será ignorado. Sin excepciones.</p></div>
-    <div class="rule" data-n="04"><h4>🤫 Profesionalismo</h4><p>Prohibido usar rangos para amenazar, presumir o obtener beneficios dentro del juego o Discord.</p></div>
-    <div class="rule" data-n="05"><h4>⏰ Actividad</h4><p>Inactividad mayor a 3 días sin aviso en #┃inactividad = demote automático.</p></div>
-    <div class="rule" data-n="06"><h4>🎓 Respeto a Entrenadores</h4><p>Solo miembros con rango <b style="color:#fff">Entrenador</b> pueden responder dudas en #┃entrenador. No intervengas si no tienes el rango.</p></div>
+    <div class="rule" data-n="01"><h4 data-es="🖤 Lealtad al proyecto" data-en="🖤 Loyalty to the project">🖤 Lealtad al proyecto</h4><p data-es="Está prohibido filtrar información interna, plantillas, pruebas o decisiones del Staff. Todo es confidencial." data-en="Leaking internal information, templates, evidence or Staff decisions is forbidden. Everything is confidential.">Está prohibido filtrar información interna, plantillas, pruebas o decisiones del Staff. Todo es confidencial.</p></div>
+    <div class="rule" data-n="02"><h4 data-es="⚖️ Imparcialidad total" data-en="⚖️ Total impartiality">⚖️ Imparcialidad total</h4><p data-es="No se sanciona a amigos con favoritismo ni a enemigos con dureza. Toda sanción debe tener prueba válida." data-en="No favoritism toward friends, no harshness toward rivals. Every sanction must have valid evidence.">No se sanciona a amigos con favoritismo ni a enemigos con dureza. Toda sanción debe tener prueba válida.</p></div>
+    <div class="rule" data-n="03"><h4 data-es="📋 Plantilla obligatoria" data-en="📋 Mandatory template">📋 Plantilla obligatoria</h4><p data-es="Todo reporte sin plantilla completa (Nombre / Razón / Pruebas) será ignorado. Sin excepciones." data-en="Any report without the full template (Name / Reason / Evidence) will be ignored. No exceptions.">Todo reporte sin plantilla completa (Nombre / Razón / Pruebas) será ignorado. Sin excepciones.</p></div>
+    <div class="rule" data-n="04"><h4 data-es="🤫 Profesionalismo" data-en="🤫 Professionalism">🤫 Profesionalismo</h4><p data-es="Prohibido usar rangos para amenazar, presumir o obtener beneficios dentro del juego o Discord." data-en="Forbidden to use ranks to threaten, show off or gain advantages in-game or on Discord.">Prohibido usar rangos para amenazar, presumir o obtener beneficios dentro del juego o Discord.</p></div>
+    <div class="rule" data-n="05"><h4 data-es="⏰ Actividad" data-en="⏰ Activity">⏰ Actividad</h4><p data-es="Inactividad mayor a 3 días sin aviso en #┃inactividad = descenso automático." data-en="Inactivity over 3 days without notice in #┃inactividad = automatic demotion.">Inactividad mayor a 3 días sin aviso en #┃inactividad = demote automático.</p></div>
+    <div class="rule" data-n="06"><h4 data-es="🎓 Respeto a Entrenadores" data-en="🎓 Respect Trainers">🎓 Respeto a Entrenadores</h4><p data-es="Solo miembros con rango Entrenador pueden responder dudas en #┃entrenador. No intervengas si no tienes el rango." data-en="Only members with the Trainer rank may answer questions in #┃entrenador. Do not step in without the rank.">Solo miembros con rango <b style="color:#fff">Entrenador</b> pueden responder dudas en #┃entrenador. No intervengas si no tienes el rango.</p></div>
   </div>
 </section>
+
+<section id="staffmes">
+  <div class="reveal">
+    <div class="sec-label" data-es="05 — Reconocimiento" data-en="05 — Recognition">05 — Reconocimiento</div>
+    <h2 class="sec-title"><span data-es="Staff " data-en="">Staff </span><em data-es="del Mes" data-en="of the Month">del Mes</em></h2>
+    <p class="sec-sub" data-es="El miembro más destacado del mes, elegido por puntos y actividad. Datos gestionados desde el panel administrativo." data-en="The most outstanding member of the month, chosen by points and activity. Data managed from the admin panel.">El miembro más destacado del mes, elegido por puntos y actividad. Datos gestionados desde el panel administrativo.</p>
+  </div>
+  <div class="sotm-wrap reveal">
+    <div class="sotm-card">
+      <div class="sotm-crown">👑</div>
+      <div class="sotm-faces">
+        <div class="sotm-mc"><img id="sotmSkin" src="https://minotar.net/helm/MHF_Steve/100.png" alt="Skin Minecraft"><span data-es="Minecraft" data-en="Minecraft">Minecraft</span></div>
+        <div class="sotm-dc"><div class="dc-frame deco-gold"><img id="sotmAvatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Avatar Discord"></div><span>Discord</span></div>
+      </div>
+      <h3 id="sotmMcNick">—</h3>
+      <p class="sotm-dcname" id="sotmDcName">—</p>
+      <div class="sotm-points"><b id="sotmPoints">0</b> <span data-es="puntos" data-en="points">puntos</span></div>
+      <p class="sotm-month" id="sotmMonth">—</p>
+    </div>
+    <div class="sotm-side">
+      <h4 data-es="🏆 Tabla de puntos" data-en="🏆 Points leaderboard">🏆 Tabla de puntos</h4>
+      <p data-es="Actividad del equipo. El panel admin suma y resta puntos." data-en="Team activity. The admin panel adds and removes points.">Actividad del equipo. El panel admin suma y resta puntos.</p>
+      <div id="pointsBoard" class="points-board"></div>
+    </div>
+  </div>
+</section>
+
+<button id="adminFab" title="Admin">🔒</button>
+<div id="adminModal" class="modal hidden">
+  <div class="modal-box">
+    <h3 data-es="🔒 Panel Administrativo" data-en="🔒 Admin Panel">🔒 Panel Administrativo</h3>
+    <p data-es="Acceso restringido. Ingresa la contraseña." data-en="Restricted access. Enter the password.">Acceso restringido. Ingresa la contraseña.</p>
+    <input type="password" id="adminPass" data-es-ph="Contraseña" data-en-ph="Password" placeholder="Contraseña" autocomplete="off">
+    <p class="modal-err hidden" id="adminErr" data-es="❌ Contraseña incorrecta." data-en="❌ Wrong password.">❌ Contraseña incorrecta.</p>
+    <div class="modal-btns"><button class="btn btn-white" id="adminLogin" data-es="Entrar" data-en="Login">Entrar</button><button class="btn btn-ghost" id="adminClose" data-es="Cerrar" data-en="Close">Cerrar</button></div>
+  </div>
+</div>
+<div id="adminPanel" class="admin-panel hidden">
+  <div class="admin-head"><h3 data-es="⚙️ Administración" data-en="⚙️ Administration">⚙️ Administración</h3><button id="adminLogout" class="btn btn-ghost" data-es="Salir" data-en="Exit">Salir</button></div>
+  <div class="admin-grid">
+    <div class="admin-card">
+      <h4 data-es="👑 Staff del Mes" data-en="👑 Staff of the Month">👑 Staff del Mes</h4>
+      <label data-es="Nickname de Minecraft" data-en="Minecraft nickname">Nickname de Minecraft</label>
+      <input id="fMc" placeholder="Ej: Discohikorybrs">
+      <button class="mini-btn" id="btnCheckMc" data-es="✔ Verificar skin" data-en="✔ Verify skin">✔ Verificar skin</button>
+      <img id="mcPreview" class="preview hidden" alt="preview">
+      <p id="mcStatus" class="status"></p>
+      <label data-es="ID de Discord" data-en="Discord ID">ID de Discord</label>
+      <input id="fDcId" placeholder="Ej: 123456789012345678">
+      <button class="mini-btn" id="btnCheckDc" data-es="✔ Buscar en Discord" data-en="✔ Look up on Discord">✔ Buscar en Discord</button>
+      <p id="dcStatus" class="status"></p>
+      <label data-es="Nombre de Discord" data-en="Discord name">Nombre de Discord</label>
+      <input id="fDcName" placeholder="Ej: discohikorybrs">
+      <label data-es="Foto de Discord (URL)" data-en="Discord picture (URL)">Foto de Discord (URL)</label>
+      <input id="fDcAv" placeholder="https://...">
+      <label data-es="Decoración del marco" data-en="Frame decoration">Decoración del marco</label>
+      <select id="fDeco"><option value="deco-gold">👑 Dorada élite</option><option value="deco-neon">⚡ Neón</option><option value="deco-ice">❄ Hielo</option><option value="deco-fire">🔥 Fuego</option></select>
+      <label data-es="Puntos" data-en="Points">Puntos</label>
+      <input id="fPts" type="number" value="0">
+      <button class="copy-btn" id="btnSaveSotm" data-es="💾 Guardar Staff del Mes" data-en="💾 Save Staff of the Month">💾 Guardar Staff del Mes</button>
+    </div>
+    <div class="admin-card">
+      <h4 data-es="⭐ Puntos del equipo" data-en="⭐ Team points">⭐ Puntos del equipo</h4>
+      <label data-es="Miembro (nick o Discord)" data-en="Member (nick or Discord)">Miembro (nick o Discord)</label>
+      <input id="pName" placeholder="Ej: Steve_24">
+      <label data-es="Cantidad" data-en="Amount">Cantidad</label>
+      <input id="pAmt" type="number" value="1">
+      <div class="modal-btns"><button class="mini-btn" id="btnPAdd">＋</button><button class="mini-btn" id="btnPSub">－</button></div>
+      <h4 style="margin-top:18px" data-es="📜 Historial" data-en="📜 History">📜 Historial</h4>
+      <div id="ptsLog" class="pts-log"></div>
+      <button class="mini-btn danger" id="btnPClear" data-es="🗑 Reiniciar puntos" data-en="🗑 Reset points">🗑 Reiniciar puntos</button>
+    </div>
+  </div>
+  <p class="admin-note" data-es="Nota: los datos se guardan en este navegador. Para que todo el equipo vea lo mismo se necesita una base de datos o bot (fase 2)." data-en="Note: data is stored in this browser. A database or bot is needed so the whole team sees the same (phase 2).">Nota: los datos se guardan en este navegador. Para que todo el equipo vea lo mismo se necesita una base de datos o bot (fase 2).</p>
+</div>
+<div id="toast" class="toast hidden"></div>
 
 <footer>
   <div class="foot-logo"><span>SYLEN</span>MC</div>
@@ -361,30 +535,33 @@ footer p{color:#666;font-size:.82rem;margin-top:12px}
 <button id="cinemaBtn" onclick="toggleCinema()">🎬 CINE</button>
 
 <script>
+let LANG=localStorage.getItem('sylenmc-lang')||'es';
 const TPLS=[
- {id:'castigo',cat:'sancion',emoji:'🔨',color:'#ff2d55',title:'Plantilla de Castigo',sub:'#⚙️┃castigos • Sanciones MC',code:'Nombre (IGN):\nRazón:\nPruebas:',note:'<b>Recuerda:</b> coloca toda la información solicitada. Las pruebas deben ser claras y relacionadas con el motivo del reporte.'},
- {id:'quitar',cat:'sancion',emoji:'🔓',color:'#2effa1',title:'Plantilla de Quitar Castigo',sub:'#⚙️┃quitar-castigo • Apelaciones',code:'Nombre (IGN):\nRazón:\nPruebas:',note:'<b>Recuerda:</b> solo se quita el castigo con prueba de inocencia o error del Staff. Revisa el historial antes.'},
- {id:'mutes',cat:'sancion',emoji:'🔇',color:'#e8c15a',title:'Plantilla de Mute',sub:'#⚙️┃mutes • Chat / Toxicidad',code:'IGN:\nRazón:\nPruebas:',note:'<b>Recuerda:</b> adjunta captura del chat completo con fecha y nick visible.'},
- {id:'evasion',cat:'sancion',emoji:'🚫',color:'#a06bff',title:'Plantilla de Evasión',sub:'#⚙️┃evasion • Cuentas secundarias',code:'Nombre (IGN):\nRazón:\nPruebas:',note:'<b>Recuerda:</b> compara direcciones, nombres parecidos y deja constancia de la cuenta principal.'},
- {id:'revivir',cat:'sancion',emoji:'💫',color:'#5aa8ff',title:'Plantilla de Revivir',sub:'#⚙️┃revivir • Restaurar inventario',code:'Nombre (IGN):\nRazón:\nPruebas:\nCaptura del inventario restaurado:',note:'<b>Recuerda:</b> sin captura del inventario restaurado el revivir será denegado.'},
- {id:'discord',cat:'evidencia',emoji:'💬',color:'#5aa8ff',title:'Plantilla de Discord',sub:'#⚙️┃discord-evidencias',code:'Tag de Discord:\nCaptura:',note:'<b>Recuerda:</b> la captura debe mostrar el nombre completo y el mensaje que rompe las normas.'},
- {id:'aprendiz',cat:'evidencia',emoji:'🚨',color:'#ff2d55',title:'Reportes de Usuarios',sub:'#🌧️┃reportes-aprendiz • Aprendices',code:'Nombre:\nRazón:\nPrueba:',note:'📌 <b>Importante:</b> todo reporte debe contar con razón clara y pruebas que respalden la situación.'},
- {id:'notas',cat:'ayuda',emoji:'🔥',color:'#ff8a2a',title:'Notas de Jugadores',sub:'#🔥┃notas • Seguimiento',code:'Nombre del jugador:\nNota / Situación:\nStaff que reporta:',note:'💙 <b>Mantengamos buena comunicación</b> para trabajar mejor como equipo. Solo información relevante.'},
- {id:'entrenador',cat:'ayuda',emoji:'❓',color:'#2effa1',title:'¿Tienes alguna duda?',sub:'#🔥┃entrenador • Solo Entrenadores responden',code:'Duda:\n@Entrenador',note:'📌 Las dudas <b>solo podrán ser respondidas por miembros con rango Entrenador</b>.'},
+ {id:'castigo',cat:'sancion',emoji:'🔨',color:'#ff2d55',title:'Plantilla de Castigo',title_en:'Sanction Template',sub:'#⚙️┃castigos • Sanciones MC',code:'Nombre (IGN):\nRazón:\nPruebas:',note:'<b>Recuerda:</b> coloca toda la información solicitada. Las pruebas deben ser claras y relacionadas con el motivo del reporte.',note_en:'<b>Remember:</b> fill in all requested info. Evidence must be clear and related to the report reason.'},
+ {id:'quitar',cat:'sancion',emoji:'🔓',color:'#2effa1',title:'Plantilla de Quitar Castigo',title_en:'Sanction Removal Template',sub:'#⚙️┃quitar-castigo • Apelaciones',code:'Nombre (IGN):\nRazón:\nPruebas:',note:'<b>Recuerda:</b> solo se quita el castigo con prueba de inocencia o error del Staff. Revisa el historial antes.',note_en:'<b>Remember:</b> sanctions are only lifted with proof of innocence or Staff error. Check history first.'},
+ {id:'mutes',cat:'sancion',emoji:'🔇',color:'#e8c15a',title:'Plantilla de Mute',title_en:'Mute Template',sub:'#⚙️┃mutes • Chat / Toxicidad',code:'IGN:\nRazón:\nPruebas:',note:'<b>Recuerda:</b> adjunta captura del chat completo con fecha y nick visible.',note_en:'<b>Remember:</b> attach a full chat screenshot with date and visible nick.'},
+ {id:'evasion',cat:'sancion',emoji:'🚫',color:'#a06bff',title:'Plantilla de Evasión',title_en:'Evasion Template',sub:'#⚙️┃evasion • Cuentas secundarias',code:'Nombre (IGN):\nRazón:\nPruebas:',note:'<b>Recuerda:</b> compara direcciones, nombres parecidos y deja constancia de la cuenta principal.',note_en:'<b>Remember:</b> compare addresses and similar names, record the main account.'},
+ {id:'revivir',cat:'sancion',emoji:'💫',color:'#5aa8ff',title:'Plantilla de Revivir',title_en:'Revive Template',sub:'#⚙️┃revivir • Restaurar inventario',code:'Nombre (IGN):\nRazón:\nPruebas:\nCaptura del inventario restaurado:',note:'<b>Recuerda:</b> sin captura del inventario restaurado el revivir será denegado.',note_en:'<b>Remember:</b> without a restored-inventory screenshot the revive will be denied.'},
+ {id:'discord',cat:'evidencia',emoji:'💬',color:'#5aa8ff',title:'Plantilla de Discord',title_en:'Discord Template',sub:'#⚙️┃discord-evidencias',code:'Tag de Discord:\nCaptura:',note:'<b>Recuerda:</b> la captura debe mostrar el nombre completo y el mensaje que rompe las normas.',note_en:'<b>Remember:</b> the screenshot must show the full name and the rule-breaking message.'},
+ {id:'aprendiz',cat:'evidencia',emoji:'🚨',color:'#ff2d55',title:'Reportes de Usuarios',title_en:'User Reports',sub:'#🌧️┃reportes-aprendiz • Aprendices',code:'Nombre:\nRazón:\nPrueba:',note:'📌 <b>Importante:</b> todo reporte debe contar con razón clara y pruebas que respalden la situación.',note_en:'📌 <b>Important:</b> every report needs a clear reason and supporting evidence.'},
+ {id:'notas',cat:'ayuda',emoji:'🔥',color:'#ff8a2a',title:'Notas de Jugadores',title_en:'Player Notes',sub:'#🔥┃notas • Seguimiento',code:'Nombre del jugador:\nNota / Situación:\nStaff que reporta:',note:'💙 <b>Mantengamos buena comunicación</b> para trabajar mejor como equipo. Solo información relevante.',note_en:'💙 <b>Let us keep good communication</b> to work better as a team. Relevant info only.'},
+ {id:'entrenador',cat:'ayuda',emoji:'❓',color:'#2effa1',title:'¿Tienes alguna duda?',title_en:'Any questions?',sub:'#🔥┃entrenador • Solo Entrenadores responden',code:'Duda:\n@Entrenador',note:'📌 Las dudas <b>solo podrán ser respondidas por miembros con rango Entrenador</b>.',note_en:'📌 Questions <b>may only be answered by Trainer-rank members</b>.'},
 ];
 const grid=document.getElementById('tplGrid');
 function render(f='all',q=''){
  grid.innerHTML='';
- TPLS.filter(t=>(f==='all'||t.cat===f)&&(t.title+t.code+t.sub).toLowerCase().includes(q.toLowerCase())).forEach((t,i)=>{
+  TPLS.filter(t=>(f==='all'||t.cat===f)&&((t.title+' '+t.title_en+' '+t.code+' '+t.sub).toLowerCase().includes(q.toLowerCase()))).forEach((t,i)=>{
+  const tt=LANG==='en'?(t.title_en||t.title):t.title, nn=LANG==='en'?(t.note_en||t.note):t.note;
   const d=document.createElement('div');d.className='tpl reveal visible';d.style.animationDelay=(i*0.05)+'s';
-  d.innerHTML=`<div class="tpl-head"><div class="tpl-emoji">${t.emoji}</div><div><h4>📋 • ${t.title}</h4><small>${t.sub}</small></div></div>
+  const copyT=LANG==='en'?'📎 Copy template':'📎 Copiar plantilla';
+  d.innerHTML=`<div class="tpl-head"><div class="tpl-emoji">${t.emoji}</div><div><h4>📋 • ${tt}</h4><small>${t.sub}</small></div></div>
   <div class="tpl-body"><div class="codebox" style="--c:${t.color}">${t.code.replace(/\n/g,'<br>')}</div>
-  <div class="tpl-note">⚠️ ${t.note}</div>
-  <div class="warn">❗ <b>El uso incorrecto o incompleto de la plantilla puede provocar que el reporte no sea tomado en cuenta.</b></div>
-  <button class="copy-btn" onclick="copyTpl(this,'${t.id}')">📎 Copiar plantilla</button></div>`;
+  <div class="tpl-note">⚠️ ${nn}</div>
+  <div class="warn">❗ <b>${LANG==='en'?'Incorrect or incomplete use of the template may cause the report to be ignored.':'El uso incorrecto o incompleto de la plantilla puede provocar que el reporte no sea tomado en cuenta.'}</b></div>
+  <button class="copy-btn" onclick="copyTpl(this,'${t.id}')">${copyT}</button></div>`;
   grid.appendChild(d);
  });
- if(!grid.innerHTML) grid.innerHTML='<p style="color:#777">Sin resultados para tu búsqueda.</p>';
+ if(!grid.innerHTML) grid.innerHTML=`<p style="color:#777">${LANG==='en'?'No results for your search.':'Sin resultados para tu búsqueda.'}</p>`;
 }
 render();
 document.getElementById('tabs').addEventListener('click',e=>{
