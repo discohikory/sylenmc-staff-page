@@ -12,6 +12,9 @@ Una vez activado Pages: `https://TU-USUARIO.github.io/sylenmc-network-staff/`
 - Plantillas: punish, unpunish, mutes, evading, revives, discord, reportes-learner, notes, trainer
 - Canales + Reglas Staff
 
+## © Derechos de autor
+© 2026 **Discohikorybrs - Daniel Esteban Vera Fernandez**. Todos los derechos reservados.
+
 ## 🚀 Activar Pages
 1. Sube este repo a GitHub
 2. Settings → Pages → Deploy from branch → `main` / `/ (root)`
