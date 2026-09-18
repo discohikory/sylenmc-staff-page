@@ -570,20 +570,106 @@ document.getElementById('tabs').addEventListener('click',e=>{
 document.getElementById('search').addEventListener('input',e=>{render(document.querySelector('.tab.active').dataset.f,e.target.value);});
 function copyTpl(btn,id){
  const t=TPLS.find(x=>x.id===id);
- navigator.clipboard.writeText(t.code).then(()=>{btn.classList.add('ok');btn.textContent='✅ ¡Copiado!';setTimeout(()=>{btn.classList.remove('ok');btn.textContent='📎 Copiar plantilla';},1800);});
+ navigator.clipboard.writeText(t.code).then(()=>{btn.classList.add('ok');btn.textContent=LANG==='en'?'✅ Copied!':'✅ ¡Copiado!';setTimeout(()=>{btn.classList.remove('ok');render(document.querySelector('.tab.active').dataset.f,document.getElementById('search').value);},1800);});
 }
 
-// Typewriter
-const lines=['Bienvenido al <span>Staff Team</span> de SylenMC...','Reporta • Sanciona • Protege la <span>Network</span>...','Edición <span>BLACK CINEMATIC</span> ⚡'];
+// Typewriter (ES/EN)
+const LINES={es:['Bienvenido al <span>Staff Team</span> de SylenMC...','Reporta • Sanciona • Protege la <span>Network</span>...','Edición <span>BLACK CINEMATIC</span> ⚡'],en:['Welcome to the SylenMC <span>Staff Team</span>...','Report • Sanction • Protect the <span>Network</span>...','<span>BLACK CINEMATIC</span> edition ⚡']};
 let li=0,ci=0,del=false;const tw=document.getElementById('typewriter');
-(function type(){const cur=lines[li];ci+=del?-2:1;
- tw.innerHTML=cur.slice(0,ci).replace(/<span>/g,'<span>').replace(/<\/span/g,'</span')+ '<span style="animation:blink 1s infinite">|</span>';
- if(!del&&ci>=cur.length+20){del=true;} if(del&&ci<=0){del=false;li=(li+1)%lines.length;}
+(function type(){const cur=LINES[LANG][li];ci+=del?-2:1;
+ tw.innerHTML=cur.slice(0,ci)+ '<span style="animation:blink 1s infinite">|</span>';
+ if(!del&&ci>=cur.length+20){del=true;} if(del&&ci<=0){del=false;li=(li+1)%LINES[LANG].length;}
  setTimeout(type,del?25:55);})();
 
-// Marquee
-const m='SYLENMC NETWORK <b>✦</b> STAFF PAGE <b>✦</b> BLACK EDITION <b>✦</b> CASTIGOS <b>✦</b> MUTE <b>✦</b> EVASIÓN <b>✦</b> REVIVIR <b>✦</b> ';
-document.getElementById('marquee').innerHTML=(m+m+m+m).replace(/</g,'<');
+// Marquee per lang
+function paintMarquee(){const m=LANG==='en'?'SYLENMC NETWORK <b>✦</b> STAFF PAGE <b>✦</b> BLACK EDITION <b>✦</b> SANCTIONS <b>✦</b> MUTE <b>✦</b> EVASION <b>✦</b> REVIVE <b>✦</b> ':'SYLENMC NETWORK <b>✦</b> STAFF PAGE <b>✦</b> BLACK EDITION <b>✦</b> CASTIGOS <b>✦</b> MUTE <b>✦</b> EVASIÓN <b>✦</b> REVIVIR <b>✦</b> ';document.getElementById('marquee').innerHTML=(m+m+m+m);}
+
+// i18n
+function applyLang(l){LANG=l;localStorage.setItem('sylenmc-lang',l);
+ document.querySelectorAll('[data-es]').forEach(el=>{el.innerHTML=(l==='en'&&el.dataset.en!==undefined&&el.dataset.en!=='')?el.dataset.en:el.dataset.es;});
+ document.querySelectorAll('[data-es-ph]').forEach(el=>{el.placeholder=l==='en'?el.dataset.enPh:el.dataset.esPh;});
+ document.getElementById('langES').classList.toggle('active',l==='es');
+ document.getElementById('langEN').classList.toggle('active',l==='en');
+ document.documentElement.lang=l;li=0;ci=0;del=false;paintMarquee();
+ render(document.querySelector('.tab.active').dataset.f,document.getElementById('search').value);
+ renderBoard();
+}
+document.getElementById('langES').onclick=()=>applyLang('es');
+document.getElementById('langEN').onclick=()=>applyLang('en');
+
+// ---- STAFF DEL MES + PUNTOS (localStorage) ----
+const DBk='sylenmc-db-v1';
+function loadDB(){try{return JSON.parse(localStorage.getItem(DBk))||{sotm:null,points:{},log:[]}}catch(e){return{sotm:null,points:{},log:[]}}}
+function saveDB(d){localStorage.setItem(DBk,JSON.stringify(d))}
+let DB=loadDB();
+function mcHead(n){return 'https://minotar.net/helm/'+encodeURIComponent(n)+'/100.png'}
+function renderSotm(){const s=DB.sotm;if(!s)return;
+ document.getElementById('sotmMcNick').textContent=s.mc||'—';
+ document.getElementById('sotmDcName').textContent=(s.dcName?'@'+s.dcName:'—')+(s.dcId?' • '+s.dcId:'');
+ document.getElementById('sotmPoints').textContent=s.pts||0;
+ document.getElementById('sotmSkin').src=mcHead(s.mc||'MHF_Steve');
+ document.getElementById('sotmSkin').onerror=function(){this.src='https://minotar.net/helm/MHF_Steve/100.png'};
+ if(s.dcAv)document.getElementById('sotmAvatar').src=s.dcAv;
+ document.querySelector('.dc-frame').className='dc-frame '+(s.deco||'deco-gold');
+ const d=new Date();document.getElementById('sotmMonth').textContent=d.toLocaleString(LANG==='en'?'en-US':'es-ES',{month:'long',year:'numeric'});
+}
+function renderBoard(){const b=document.getElementById('pointsBoard');if(!b)return;const e=Object.entries(DB.points).sort((a,c)=>c[1]-a[1]);
+ b.innerHTML=e.length?e.map(([n,p])=>`<div class="pb-row"><img loading="lazy" src="${mcHead(n)}" onerror="this.src='https://minotar.net/helm/MHF_Steve/100.png'" alt=""><span>${n}</span><b>${p} pts</b></div>`).join(''):`<p style="color:#666;font-size:.82rem">${LANG==='en'?'No points yet. Add members from the admin panel.':'Aún no hay puntos. Agrega miembros desde el panel admin.'}</p>`;
+ const log=document.getElementById('ptsLog');if(log)log.innerHTML=(DB.log||[]).slice(0,30).map(x=>`<div>${x}</div>`).join('')||(LANG==='en'?'No movements yet.':'Sin movimientos aún.');
+}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.remove('hidden');setTimeout(()=>t.classList.add('hidden'),2400)}
+
+// ---- ADMIN (hash SHA-256, sin clave en texto plano) ----
+const PASS_HASH='7984355575d1ed1959a84d00f13a5df037f0b00f7bce20343f012f3a07934ed3';
+async function sha256(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+let ADMIN=false;
+const $=id=>document.getElementById(id);
+$('adminFab').onclick=()=>{$('adminModal').classList.remove('hidden');$('adminPass').value='';$('adminErr').classList.add('hidden');setTimeout(()=>$('adminPass').focus(),100)};
+$('adminClose').onclick=()=>$('adminModal').classList.add('hidden');
+$('adminPass').addEventListener('keydown',e=>{if(e.key==='Enter')$('adminLogin').click()});
+$('adminLogin').onclick=async()=>{const h=await sha256($('adminPass').value);
+ if(h===PASS_HASH){ADMIN=true;$('adminModal').classList.add('hidden');$('adminPanel').classList.remove('hidden');toast(LANG==='en'?'Welcome, admin ✅':'Bienvenido, admin ✅')}
+ else{$('adminErr').classList.remove('hidden')}};
+$('adminLogout').onclick=()=>{ADMIN=false;$('adminPanel').classList.add('hidden')};
+// Verificar Minecraft (PlayerDB + Minotar)
+$('btnCheckMc').onclick=async()=>{const n=$('fMc').value.trim();if(!n)return toast('✏️ Nick?');
+ $('mcStatus').textContent='⏳...';
+ try{const r=await fetch('https://playerdb.co/api/player/minecraft/'+encodeURIComponent(n));const j=await r.json();
+  if(j.success){$('mcPreview').src=j.data.player.avatar;$('mcPreview').classList.remove('hidden');$('mcStatus').textContent='✅ Premium verificado: '+j.data.player.username;toast('✅ Minecraft verificado')}
+  else{$('mcPreview').src=mcHead(n);$('mcPreview').classList.remove('hidden');$('mcStatus').textContent='⚠️ Sin cuenta premium, se usará skin genérica.'}
+ }catch(e){$('mcPreview').src=mcHead(n);$('mcPreview').classList.remove('hidden');$('mcStatus').textContent='⚠️ Sin conexión al verificador, vista previa local.'}
+};
+// Buscar en Discord (Lanyard, si el usuario está registrado)
+$('btnCheckDc').onclick=async()=>{const id=$('fDcId').value.trim();if(!id)return toast('✏️ ID?');
+ $('dcStatus').textContent='⏳...';
+ try{const r=await fetch('https://api.lanyard.rest/v1/users/'+encodeURIComponent(id));const j=await r.json();
+  if(j.success){const u=j.data.discord_user;const av=u.avatar?`https://cdn.discordapp.com/avatars/${id}/${u.avatar}.png?size=256`:null;
+   if(av){$('fDcAv').value=av}$('fDcName').value=u.username||$('fDcName').value;
+   $('dcStatus').textContent='✅ Discord encontrado: @'+u.username+(u.bot?' (BOT)':'');toast('✅ Discord encontrado')}
+  else $('dcStatus').textContent='ℹ️ No está en Lanyard: pega su foto manualmente abajo.';
+ }catch(e){$('dcStatus').textContent='⚠️ Sin conexión a Lanyard: pega su foto manualmente abajo.'}
+};
+$('btnSaveSotm').onclick=()=>{if(!ADMIN)return;
+ DB.sotm={mc:$('fMc').value.trim(),dcId:$('fDcId').value.trim(),dcName:$('fDcName').value.trim(),dcAv:$('fDcAv').value.trim(),deco:$('fDeco').value,pts:+$('fPts').value||0};
+ if(DB.sotm.mc){DB.points[DB.sotm.mc]=DB.sotm.pts}
+ DB.log.unshift('👑 '+new Date().toLocaleString()+' — Staff del Mes: '+(DB.sotm.mc||'?'));
+ saveDB(DB);renderSotm();renderBoard();toast(LANG==='en'?'Saved ✅':'Guardado ✅')};
+// Puntos
+function movePts(sign){if(!ADMIN)return;const n=$('pName').value.trim();const a=+$('pAmt').value||0;if(!n||!a)return toast('✏️?');
+ DB.points[n]=(DB.points[n]||0)+sign*a;
+ DB.log.unshift((sign>0?'+':'−')+a+' pts → '+n+' ('+new Date().toLocaleString()+')');
+ saveDB(DB);renderBoard();if(DB.sotm&&DB.sotm.mc===n){DB.sotm.pts=DB.points[n];saveDB(DB);renderSotm()}$('pName').value='';
+}
+$('btnPAdd').onclick=()=>movePts(1);$('btnPSub').onclick=()=>movePts(-1);
+$('btnPClear').onclick=()=>{if(!ADMIN||!confirm('¿Reiniciar puntos?'))return;DB.points={};DB.log.unshift('🗑 Puntos reiniciados ('+new Date().toLocaleString()+')');saveDB(DB);renderBoard()};
+renderSotm();
+
+// ---- Anti-inspección (disuasorio: bloquea F12, Ctrl+U, clic derecho) ----
+document.addEventListener('keydown',e=>{
+ if(e.key==='F12'||((e.ctrlKey||e.metaKey)&&e.shiftKey&&['I','J','C','K'].includes(e.key.toUpperCase()))||((e.ctrlKey||e.metaKey)&&e.key.toUpperCase()==='U')){e.preventDefault();toast(LANG==='en'?'⛔ Restricted area':'⛔ Zona restringida')}
+});
+document.addEventListener('contextmenu',e=>{if(!ADMIN)e.preventDefault()});
+applyLang(LANG);
 
 // Reveal on scroll
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.12});
