@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SylenMC Network — Staff Page</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050507; --bg2:#0b0b10; --card:#111118; --card2:#16161f;
+  --border:#26262f; --text:#f2f2f5; --muted:#a1a1ad;
+  --accent:#ffffff; --accent2:#8b8b9e; --gold:#e8c15a; --red:#ff2d55; --green:#2effa1; --blue:#5aa8ff; --purple:#a06bff;
+  --glow:0 0 20px rgba(255,255,255,.15),0 0 60px rgba(255,255,255,.06);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden}
+::selection{background:#fff;color:#000}
+::-webkit-scrollbar{width:10px}::-webkit-scrollbar-track{background:#08080c}::-webkit-scrollbar-thumb{background:linear-gradient(#fff,#555);border-radius:10px}
+
+/* PRELOADER CINEMATIC */
+#preloader{position:fixed;inset:0;background:#000;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s, visibility .8s}
+#preloader.hide{opacity:0;visibility:hidden}
+.loader-logo{font-family:'Cinzel',serif;font-size:clamp(2rem,7vw,4.5rem);font-weight:900;letter-spacing:.15em;color:#fff;position:relative;overflow:hidden}
+.loader-logo span{background:linear-gradient(110deg,#fff 30%,#777 45%,#fff 60%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 1.8s linear infinite}
+@keyframes shine{to{background-position:-200% 0}}
+.loader-bar{width:min(420px,70vw);height:2px;background:#222;margin-top:25px;position:relative;overflow:hidden;border-radius:2px}
+.loader-bar::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,#fff,transparent);animation:loadbar 1.4s infinite;transform:translateX(-100%)}
+@keyframes loadbar{to{transform:translateX(100%)}}
+.loader-text{margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:.75rem;letter-spacing:.3em;color:#777;text-transform:uppercase;animation:blink 1s infinite alternate}
+@keyframes blink{to{opacity:.4}}
+.cinema-bars{position:fixed;left:0;right:0;height:0;background:#000;z-index:9998;transition:height 1.2s cubic-bezier(.8,0,.2,1)}
+.cinema-bars.top{top:0}.cinema-bars.bottom{bottom:0}
+body.cinematic .cinema-bars{height:8vh}
+
+/* CANVAS + ORBS */
+#particles{position:fixed;inset:0;z-index:0;opacity:.9;pointer-events:none}
+.orb{position:fixed;border-radius:50%;filter:blur(100px);z-index:0;pointer-events:none;opacity:.25;animation:floatOrb 12s ease-in-out infinite alternate}
+.orb1{width:500px;height:500px;background:radial-gradient(circle,#3a3a4a,transparent);top:-100px;left:-100px}
+.orb2{width:600px;height:600px;background:radial-gradient(circle,#1e1e28,transparent);bottom:-150px;right:-100px;animation-delay:-6s}
+@keyframes floatOrb{to{transform:translate(60px,40px) scale(1.1)}}
+.grid-overlay{position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:50px 50px;z-index:0;pointer-events:none;mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,black,transparent)}
+
+/* CURSOR */
+.cursor{position:fixed;width:18px;height:18px;border:1.5px solid #fff;border-radius:50%;pointer-events:none;z-index:10000;transition:transform .15s, background .15s;mix-blend-mode:difference}
+.cursor-dot{position:fixed;width:4px;height:4px;background:#fff;border-radius:50%;pointer-events:none;z-index:10000}
+@media(hover:none){.cursor,.cursor-dot{display:none}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:14px 28px;background:rgba(5,5,7,.7);backdrop-filter:blur(18px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:12px}
+.logo-img{width:44px;height:44px;background:#000;border:1px solid #333;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-weight:900;font-size:1.3rem;box-shadow:var(--glow);position:relative;overflow:hidden}
+.logo-img::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.25) 50%,transparent 70%);animation:shine 3s infinite}
+.nav-logo b{font-family:'Cinzel',serif;letter-spacing:.12em;font-size:1rem}
+.nav-logo small{display:block;font-family:'Inter';font-weight:400;letter-spacing:.35em;font-size:.6rem;color:var(--muted)}
+.nav-links{display:flex;gap:6px;flex-wrap:wrap}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.82rem;font-weight:600;letter-spacing:.05em;padding:9px 15px;border-radius:100px;border:1px solid transparent;transition:.3s}
+.nav-links a:hover,.nav-links a.active{color:#fff;border-color:#333;background:#15151c;box-shadow:var(--glow)}
+.btn-discord{background:#fff!important;color:#000!important;font-weight:800!important}
+.btn-discord:hover{transform:scale(1.05)}
+@media(max-width:900px){.nav-links{display:none}}
+
+/* HERO CINEMATIC */
+header{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 20px 60px;z-index:1;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 30%,#1c1c26 0%,transparent 70%),url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1600&q=80') center/cover;opacity:.35;animation:slowZoom 20s ease-in-out infinite alternate}
+@keyframes slowZoom{from{transform:scale(1)}to{transform:scale(1.15)}}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,5,7,.4),var(--bg) 95%)}
+.hero-content{position:relative;z-index:2;max-width:1000px}
+.badge{display:inline-flex;align-items:center;gap:8px;border:1px solid #333;background:rgba(255,255,255,.05);backdrop-filter:blur(10px);padding:8px 18px;border-radius:100px;font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:#ddd;animation:fadeDown 1s .2s both}
+.badge .pulse{width:8px;height:8px;background:#2effa1;border-radius:50%;box-shadow:0 0 10px #2effa1;animation:pulse 1.5s infinite}
+@keyframes pulse{50%{opacity:.3;transform:scale(.8)}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:none}}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(2.8rem,9vw,7rem);font-weight:900;line-height:.95;margin:22px 0;letter-spacing:.02em}
+.hero-title .black{background:#000;border:2px solid #333;padding:0 18px;border-radius:16px;color:#fff;text-shadow:0 0 30px rgba(255,255,255,.5);display:inline-block;transform:rotate(-2deg);box-shadow:var(--glow),inset 0 0 30px rgba(255,255,255,.05);animation:floatT 4s ease-in-out infinite}
+@keyframes floatT{50%{transform:rotate(-2deg) translateY(-8px)}}
+.hero-title .outline{color:transparent;-webkit-text-stroke:1.5px #fff}
+.hero-title .gold{background:linear-gradient(180deg,#fff,#e8c15a);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 25px rgba(232,193,90,.3))}
+.typewriter{font-family:'JetBrains Mono',monospace;color:var(--muted);font-size:clamp(.85rem,2.5vw,1.05rem);min-height:1.6em;margin-bottom:28px}
+.typewriter span{color:#fff}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn{padding:15px 32px;border-radius:100px;font-weight:800;font-size:.9rem;letter-spacing:.05em;text-decoration:none;transition:.35s cubic-bezier(.2,.8,.2,1);cursor:pointer;border:none;display:inline-flex;align-items:center;gap:10px}
+.btn-white{background:#fff;color:#000;box-shadow:0 0 30px rgba(255,255,255,.25)}
+.btn-white:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 0 50px rgba(255,255,255,.4)}
+.btn-ghost{background:transparent;color:#fff;border:1px solid #444}
+.btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.06);transform:translateY(-3px)}
+.hero-stats{display:flex;gap:12px;justify-content:center;margin-top:50px;flex-wrap:wrap}
+.stat{background:rgba(255,255,255,.04);border:1px solid var(--border);backdrop-filter:blur(12px);border-radius:18px;padding:18px 30px;min-width:150px;transition:.3s}
+.stat:hover{transform:translateY(-5px);border-color:#555;box-shadow:var(--glow)}
+.stat h3{font-size:1.8rem;font-weight:800}
+.stat p{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;color:#666;font-size:.65rem;letter-spacing:.3em;text-transform:uppercase}
+.mouse{width:24px;height:38px;border:1.5px solid #555;border-radius:14px;position:relative}
+.mouse::after{content:'';position:absolute;top:7px;left:50%;width:4px;height:8px;background:#fff;border-radius:4px;transform:translateX(-50%);animation:wheel 1.6s infinite}
+@keyframes wheel{to{top:20px;opacity:0}}
+
+/* MARQUEE */
+.marquee{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:#08080c;overflow:hidden;white-space:nowrap;padding:14px 0;position:relative;z-index:1}
+.marquee-track{display:inline-block;animation:marquee 25s linear infinite;font-family:'Cinzel',serif;letter-spacing:.2em;font-size:.85rem;color:#888}
+.marquee-track b{color:#fff;margin:0 20px}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+/* SECTIONS */
+section{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:90px 22px}
+.sec-label{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.35em;text-transform:uppercase;color:#888;display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.sec-label::before{content:'';width:36px;height:1px;background:#fff;display:inline-block}
+.sec-title{font-family:'Cinzel',serif;font-size:clamp(1.8rem,5vw,3.2rem);font-weight:900;margin-bottom:12px}
+.sec-title em{font-style:normal;color:transparent;-webkit-text-stroke:1px #fff}
+.sec-sub{color:var(--muted);max-width:700px;line-height:1.7;margin-bottom:40px}
+.reveal{opacity:0;transform:translateY(40px);transition:all .8s cubic-bezier(.2,.8,.2,1)}
+.reveal.visible{opacity:1;transform:none}
+
+/* GUIDE CARDS */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.guide-card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--border);border-radius:22px;padding:30px;position:relative;overflow:hidden;transition:.4s;cursor:pointer}
+.guide-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#fff,transparent);opacity:0;transition:.4s}
+.guide-card:hover{transform:translateY(-8px) scale(1.01);border-color:#555;box-shadow:0 20px 60px rgba(0,0,0,.6),var(--glow)}
+.guide-card:hover::before{opacity:1}
+.guide-card .icon{font-size:2.2rem;margin-bottom:14px;display:inline-block;animation:iconFloat 3s ease-in-out infinite}
+@keyframes iconFloat{50%{transform:translateY(-6px) rotate(5deg)}}
+.guide-card h3{font-size:1.15rem;margin-bottom:10px;font-weight:800}
+.guide-card p{color:var(--muted);font-size:.9rem;line-height:1.65}
+.guide-card .tag{position:absolute;top:18px;right:18px;font-size:.62rem;letter-spacing:.15em;background:#fff;color:#000;font-weight:800;padding:4px 10px;border-radius:100px;text-transform:uppercase}
+.guide-card ul{margin-top:14px;list-style:none;color:#bbb;font-size:.85rem;line-height:2}
+.guide-card ul li::before{content:'▸ ';color:#fff}
+
+/* TEMPLATE TABS */
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px}
+.tab{padding:11px 20px;border-radius:100px;border:1px solid var(--border);background:#0e0e14;color:var(--muted);font-weight:700;font-size:.82rem;cursor:pointer;transition:.3s}
+.tab:hover{border-color:#666;color:#fff}
+.tab.active{background:#fff;color:#000;box-shadow:0 0 25px rgba(255,255,255,.25);transform:scale(1.05)}
+.templates{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
+.tpl{background:#0d0d13;border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:.4s;position:relative}
+.tpl:hover{transform:translateY(-6px);border-color:#555;box-shadow:0 18px 50px rgba(0,0,0,.6)}
+.tpl-head{padding:20px 22px 0;display:flex;align-items:center;gap:12px}
+.tpl-emoji{width:46px;height:46px;border-radius:14px;background:#000;border:1px solid #333;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+.tpl-head h4{font-size:1rem;letter-spacing:.04em;text-transform:uppercase}
+.tpl-head small{color:var(--muted);font-size:.72rem;font-family:'JetBrains Mono',monospace}
+.tpl-body{padding:16px 22px 22px}
+.codebox{background:#000;border:1px solid #2a2a33;border-radius:12px;padding:16px;font-family:'JetBrains Mono',monospace;font-size:.82rem;line-height:1.8;color:#d6d6de;position:relative;overflow:hidden}
+.codebox::after{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--c,#fff)}
+.tpl-note{font-size:.82rem;color:#bbb;line-height:1.6;margin-top:14px}
+.tpl-note b{color:#fff}
+.warn{margin-top:12px;font-size:.8rem;background:rgba(255,45,85,.08);border:1px solid rgba(255,45,85,.25);padding:12px 14px;border-radius:12px;color:#ffb3c1;line-height:1.55}
+.warn b{color:#ff8095}
+.copy-btn{margin-top:14px;width:100%;padding:12px;border-radius:12px;border:1px solid #333;background:#191921;color:#fff;font-weight:800;font-size:.8rem;letter-spacing:.08em;cursor:pointer;transition:.3s;text-transform:uppercase}
+.copy-btn:hover{background:#fff;color:#000;box-shadow:var(--glow)}
+.copy-btn.ok{background:#2effa1!important;color:#000!important;border-color:#2effa1}
+
+/* CHANNELS */
+.chan-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.chan-cat{background:linear-gradient(180deg,#101016,#0a0a0f);border:1px solid var(--border);border-radius:20px;padding:24px;transition:.35s}
+.chan-cat:hover{border-color:#4a4a55;box-shadow:var(--glow)}
+.chan-cat h4{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:#fff;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.chan-cat h4::after{content:'';flex:1;height:1px;background:#2a2a33}
+.chan{padding:9px 12px;border-radius:10px;font-size:.86rem;color:#bdbdc8;transition:.25s;display:flex;align-items:center;gap:8px;cursor:default}
+.chan:hover{background:#1c1c26;color:#fff;transform:translateX(6px)}
+.chan span{opacity:.7}
+
+/* RULES TIMELINE */
+.rules{border-left:2px solid #2a2a33;margin-left:10px;padding-left:0}
+.rule{position:relative;padding:0 0 28px 34px}
+.rule::before{content:attr(data-n);position:absolute;left:-19px;top:0;width:36px;height:36px;background:#000;border:1px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.8rem;box-shadow:var(--glow)}
+.rule h4{font-size:1rem;margin-bottom:6px}
+.rule p{color:var(--muted);font-size:.88rem;line-height:1.65}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);background:#030304;padding:60px 22px 30px;text-align:center;position:relative;z-index:1}
+.foot-logo{font-family:'Cinzel',serif;font-size:2.2rem;font-weight:900;letter-spacing:.1em}
+.foot-logo span{background:#000;border:1px solid #444;padding:0 12px;border-radius:10px}
+footer p{color:#666;font-size:.82rem;margin-top:12px}
+.foot-btns{margin-top:22px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* SEARCH */
+.searchbar{margin-bottom:24px;display:flex;gap:10px}
+.searchbar input{flex:1;background:#0d0d13;border:1px solid var(--border);border-radius:100px;padding:14px 22px;color:#fff;font-size:.9rem;outline:none;transition:.3s}
+.searchbar input:focus{border-color:#fff;box-shadow:var(--glow)}
+
+/* BACK TO TOP + CINEMA BTN */
+#toTop{position:fixed;bottom:24px;right:24px;width:52px;height:52px;border-radius:50%;background:#fff;color:#000;border:none;font-size:1.3rem;cursor:pointer;z-index:200;opacity:0;pointer-events:none;transition:.4s;box-shadow:0 0 30px rgba(255,255,255,.3)}
+#toTop.show{opacity:1;pointer-events:auto}
+#toTop:hover{transform:scale(1.1)}
+#cinemaBtn{position:fixed;bottom:24px;left:24px;padding:13px 20px;border-radius:100px;background:rgba(255,255,255,.06);border:1px solid #444;color:#fff;font-size:.75rem;font-weight:800;letter-spacing:.15em;cursor:pointer;z-index:200;backdrop-filter:blur(10px);transition:.3s}
+#cinemaBtn:hover{background:#fff;color:#000}
+
+/* LIGHTBOX entrance */
+.entrance{position:fixed;inset:0;background:#000;z-index:9997;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;animation:enterOut 3.2s forwards}
+.entrance h1{font-family:'Cinzel',serif;font-size:clamp(1.6rem,6vw,3.5rem);letter-spacing:.25em;animation:letterIn 2s both}
+@keyframes letterIn{from{opacity:0;letter-spacing:.6em;filter:blur(10px)}to{opacity:1;letter-spacing:.25em;filter:none}}
+@keyframes enterOut{0%{opacity:1}80%{opacity:1}100%{opacity:0;visibility:hidden}}
+.entrance small{font-family:'JetBrains Mono',monospace;letter-spacing:.4em;color:#666;font-size:.7rem;text-transform:uppercase}
+</style>
+</head>
+<body class="cinematic">
+
+<div id="preloader">
+  <div class="loader-logo"><span>SYLENMC</span></div>
+  <div class="loader-bar"></div>
+  <div class="loader-text">Cargando Staff Page ...</div>
+</div>
+
+<div class="cinema-bars top"></div>
+<div class="cinema-bars bottom"></div>
+<canvas id="particles"></canvas>
+<div class="orb orb1"></div><div class="orb orb2"></div>
+<div class="grid-overlay"></div>
+<div class="cursor" id="cursor"></div><div class="cursor-dot" id="cursorDot"></div>
+
+<nav>
+  <div class="nav-logo">
+    <div class="logo-img">S</div>
+    <div><b>SYLENMC NETWORK</b><small>STAFF PAGE</small></div>
+  </div>
+  <div class="nav-links">
+    <a href="#inicio" class="active">Inicio</a>
+    <a href="#guias">Guías</a>
+    <a href="#plantillas">Plantillas</a>
+    <a href="#canales">Canales</a>
+    <a href="#reglas">Reglas Staff</a>
+    <a href="#" class="btn-discord">💎 Discord</a>
+  </div>
+</nav>
+
+<header id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="badge"><span class="pulse"></span> SylenMC Network • Staff Team Oficial</div>
+    <h1 class="hero-title">
+      <span class="black">SYLEN</span><span class="outline">MC</span><br>
+      <span class="gold">NETWORK</span> <em>STAFF</em>
+    </h1>
+    <div class="typewriter" id="typewriter"></div>
+    <div class="hero-btns">
+      <a href="#plantillas" class="btn btn-white">📋 Ver Plantillas</a>
+      <a href="#guias" class="btn btn-ghost">📖 Guías del Staff</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><h3 data-count="9">0</h3><p>Plantillas</p></div>
+      <div class="stat"><h3 data-count="5">0</h3><p>Categorías</p></div>
+      <div class="stat"><h3 data-count="20">0</h3><p>Canales Staff</p></div>
+      <div class="stat"><h3>24/7</h3><p>Soporte</p></div>
+    </div>
+  </div>
+  <div class="scroll-hint"><div class="mouse"></div>scroll</div>
+</header>
+
+<div class="marquee"><div class="marquee-track" id="marquee"></div></div>
+
+<section id="guias">
+  <div class="reveal">
+    <div class="sec-label">01 — Centro de conocimiento</div>
+    <h2 class="sec-title">Guías <em>del Staff</em></h2>
+    <p class="sec-sub">Todo lo que un miembro del Staff de <b style="color:#fff">SylenMC Network</b> debe dominar. Pasa el cursor para iluminar cada módulo. Estilo cinematográfico negro total.</p>
+  </div>
+  <div class="grid">
+    <div class="guide-card reveal"><span class="tag">Esencial</span><div class="icon">📜</div><h3>General Guide</h3><p>Comportamiento, jerarquía, ética y responsabilidades del Staff dentro y fuera del servidor.</p><ul><li>Jerarquías: Learner → Mod → Admin</li><li>Conducta ejemplar siempre</li><li>Uso correcto de comandos</li><li>Confidencialidad total</li></ul></div>
+    <div class="guide-card reveal"><span class="tag">Puntos</span><div class="icon">⭐</div><h3>Points Guide</h3><p>Sistema de puntos, actividad semanal y cómo subir de rango por méritos.</p><ul><li>+1 por reporte válido</li><li>+2 por revivir / punish correcto</li><li>Mínimo semanal: 10 pts</li><li>Promotes & Demotes mensual</li></ul></div>
+    <div class="guide-card reveal"><span class="tag">Tickets</span><div class="icon">🎫</div><h3>Ticket Guide</h3><p>Cómo atender tickets, tiempos de respuesta y protocolo de cierre.</p><ul><li>Responder en &lt; 10 min</li><li>Ser cordial y objetivo</li><li>No revelar pruebas internas</li><li>Cerrar con resumen claro</li></ul></div>
+    <div class="guide-card reveal"><span class="tag">SOTW</span><div class="icon">🏆</div><h3>Guía SOTW</h3><p>Protocolo para inicio de mundo (Start Of The World): vigilancia anti-cheat y orden del chat.</p><ul><li>Vigilar evading y teams</li><li>Registrar sanciones en vivo</li><li>Comunicación por llamada Staff</li></ul></div>
+  </div>
+</section>
+
+<section id="plantillas">
+  <div class="reveal">
+    <div class="sec-label">02 — Reportes y evidencias</div>
+    <h2 class="sec-title">Plantillas <em>oficiales</em></h2>
+    <p class="sec-sub">Usa <b style="color:#fff">obligatoriamente</b> estas plantillas. Presiona <b style="color:#fff">“Copiar”</b> para llevarla a Discord. Las pruebas deben ser claras y relacionadas con el motivo.</p>
+    <div class="searchbar"><input id="search" placeholder="🔍 Buscar plantilla... (ej: mute, evading, revive)"></div>
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-f="all">Todas</button>
+      <button class="tab" data-f="sancion">Sanciones</button>
+      <button class="tab" data-f="evidencia">Evidencias</button>
+      <button class="tab" data-f="ayuda">Ayuda</button>
+    </div>
+  </div>
+  <div class="templates" id="tplGrid"></div>
+</section>
+
+<section id="canales">
+  <div class="reveal">
+    <div class="sec-label">03 — Estructura del Discord</div>
+    <h2 class="sec-title">Canales <em>del Staff</em></h2>
+    <p class="sec-sub">Organización oficial del servidor de Staff de SylenMC Network, réplica mejorada de la estructura SkyLith.</p>
+  </div>
+  <div class="chan-grid">
+    <div class="chan-cat reveal"><h4>⚙️ Gestión</h4>
+      <div class="chan"><span>📝</span> #┃reglas-staff</div><div class="chan"><span>📣</span> #┃anuncios-staff</div><div class="chan"><span>🚨</span> #┃spoiler-staff</div><div class="chan"><span>🗂️</span> #┃tareas-staff</div><div class="chan"><span>📈</span> #┃promotes-demotes</div><div class="chan"><span>⚠️</span> #┃sanciones-staff</div><div class="chan"><span>🧊</span> #┃nicks-mc</div>
+    </div>
+    <div class="chan-cat reveal"><h4>🛡️ Moderación</h4>
+      <div class="chan"><span>⚠️</span> #⚙️┃punish</div><div class="chan"><span>🔨</span> #⚙️┃unpunish</div><div class="chan"><span>🔇</span> #⚙️┃mutes</div><div class="chan"><span>🚫</span> #⚙️┃evading</div><div class="chan"><span>💫</span> #⚙️┃revives</div><div class="chan"><span>⚠️</span> #┃sanciones-dc</div><div class="chan"><span>⚠️</span> #┃sanciones-mc</div><div class="chan"><span>📄</span> #┃guia-sanciones-mc</div>
+    </div>
+    <div class="chan-cat reveal"><h4>🗃️ Evidencias</h4>
+      <div class="chan"><span>🗂️</span> #┃evidencias-dc</div><div class="chan"><span>🗂️</span> #┃evidencias-mc</div><div class="chan"><span>🗂️</span> #┃evidencias-reportes</div><div class="chan"><span>⚙️</span> #┃discord-evidences</div><div class="chan"><span>🌧️</span> #┃reportes-learner</div>
+    </div>
+    <div class="chan-cat reveal"><h4>💎 General Staff</h4>
+      <div class="chan"><span>💎</span> #┃chat-staff</div><div class="chan"><span>🪪</span> #┃presentaciones</div><div class="chan"><span>‼️</span> #┃inactividad</div><div class="chan"><span>💡</span> #┃sugerencias</div><div class="chan"><span>🎮</span> #┃comandos</div><div class="chan"><span>🔥</span> #┃notes</div><div class="chan"><span>🔥</span> #┃trainer</div>
+    </div>
+  </div>
+</section>
+
+<section id="reglas">
+  <div class="reveal">
+    <div class="sec-label">04 — Código del Staff</div>
+    <h2 class="sec-title">Reglas <em>SylenMC</em></h2>
+    <p class="sec-sub">Incumplir cualquiera de estas normas conlleva <b style="color:#ff8095">sanción directa al Staff</b>, incluyendo demote.</p>
+  </div>
+  <div class="rules reveal">
+    <div class="rule" data-n="01"><h4>🖤 Lealtad al proyecto</h4><p>Está prohibido filtrar información interna, plantillas, pruebas o decisiones del Staff. Todo es confidencial.</p></div>
+    <div class="rule" data-n="02"><h4>⚖️ Imparcialidad total</h4><p>No se sanciona a amigos con favoritismo ni a enemigos con dureza. Toda sanción debe tener prueba válida.</p></div>
+    <div class="rule" data-n="03"><h4>📋 Plantilla obligatoria</h4><p>Todo reporte sin plantilla completa (IGN / Razón / Pruebas) será ignorado. Sin excepciones.</p></div>
+    <div class="rule" data-n="04"><h4>🤫 Profesionalismo</h4><p>Prohibido usar rangos para amenazar, presumir o obtener beneficios dentro del juego o Discord.</p></div>
+    <div class="rule" data-n="05"><h4>⏰ Actividad</h4><p>Inactividad mayor a 3 días sin aviso en #┃inactividad = demote automático.</p></div>
+    <div class="rule" data-n="06"><h4>🎓 Respeto a Trainers</h4><p>Solo miembros con rango <b style="color:#fff">Trainer</b> pueden responder dudas en #┃trainer. No intervengas si no tienes el rango.</p></div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-logo"><span>SYLEN</span>MC</div>
+  <p>SYLENMC NETWORK — STAFF PAGE • Edición Black Cinematic • Inspirada en SkyLith Network<br>© 2026 SylenMC. Todos los derechos reservados.</p>
+  <div class="foot-btns">
+    <a href="#inicio" class="btn btn-white" style="padding:12px 26px">⬆ Volver arriba</a>
+    <button class="btn btn-ghost" onclick="toggleCinema()">🎬 Modo Cine</button>
+  </div>
+</footer>
+
+<button id="toTop">↑</button>
+<button id="cinemaBtn" onclick="toggleCinema()">🎬 CINE</button>
+
+<script>
+const TPLS=[
+ {id:'punish',cat:'sancion',emoji:'🔨',color:'#ff2d55',title:'Plantilla de Punish',sub:'#⚙️┃punish • Sanciones MC',code:'IGN:\nRazón:\nPruebas:',note:'<b>Recuerda:</b> coloca toda la información solicitada. Las pruebas deben ser claras y relacionadas con el motivo del reporte.'},
+ {id:'unpunish',cat:'sancion',emoji:'🔓',color:'#2effa1',title:'Plantilla de Unpunish',sub:'#⚙️┃unpunish • Apelaciones',code:'IGN:\nRazón:\nPruebas:',note:'<b>Recuerda:</b> solo se desbanea con prueba de inocencia o error del Staff. Revisa el historial antes.'},
+ {id:'mutes',cat:'sancion',emoji:'🔇',color:'#e8c15a',title:'Plantilla de Mute',sub:'#⚙️┃mutes • Chat / Toxicidad',code:'IGN:\nRazón:\nPruebas:',note:'<b>Recuerda:</b> adjunta captura del chat completo con fecha y nick visible.'},
+ {id:'evading',cat:'sancion',emoji:'🚫',color:'#a06bff',title:'Plantilla de Evading',sub:'#⚙️┃evading • Cuentas alt',code:'IGN:\nRazón:\nPruebas:',note:'<b>Recuerda:</b> compara IPs / nicks similares y deja constancia de la cuenta principal.'},
+ {id:'revives',cat:'sancion',emoji:'💫',color:'#5aa8ff',title:'Plantilla de Revives',sub:'#⚙️┃revives • Restaurar inventario',code:'IGN:\nRazón:\nPruebas:\nCaptura del inventario restaurado:',note:'<b>Recuerda:</b> sin captura del inventario restaurado el revive será denegado.'},
+ {id:'discord',cat:'evidencia',emoji:'💬',color:'#5aa8ff',title:'Plantilla de Discord',sub:'#⚙️┃discord-evidences',code:'Discord Tag:\nCaptura:',note:'<b>Recuerda:</b> la captura debe mostrar el ID / Tag completo y el mensaje infractor.'},
+ {id:'learner',cat:'evidencia',emoji:'🚨',color:'#ff2d55',title:'Reportes de Usuarios',sub:'#🌧️┃reportes-learner • Learners',code:'Nick:\nRazón:\nPrueba:',note:'📌 <b>Importante:</b> todo reporte debe contar con razón clara y pruebas que respalden la situación.'},
+ {id:'notes',cat:'ayuda',emoji:'🔥',color:'#ff8a2a',title:'Notas de Jugadores',sub:'#🔥┃notes • Seguimiento',code:'Nick del jugador:\nNota / Situación:\nStaff que reporta:',note:'💙 <b>Mantengamos buena comunicación</b> para trabajar mejor como equipo. Solo info relevante.'},
+ {id:'trainer',cat:'ayuda',emoji:'❓',color:'#2effa1',title:'¿Tienes alguna duda?',sub:'#🔥┃trainer • Solo Trainers responden',code:'Duda:\n@Trainer',note:'📌 Las dudas <b>solo podrán ser respondidas por miembros con rango Trainer</b>.'},
+];
+const grid=document.getElementById('tplGrid');
+function render(f='all',q=''){
+ grid.innerHTML='';
+ TPLS.filter(t=>(f==='all'||t.cat===f)&&(t.title+t.code+t.sub).toLowerCase().includes(q.toLowerCase())).forEach((t,i)=>{
+  const d=document.createElement('div');d.className='tpl reveal visible';d.style.animationDelay=(i*0.05)+'s';
+  d.innerHTML=`<div class="tpl-head"><div class="tpl-emoji">${t.emoji}</div><div><h4>📋 • ${t.title}</h4><small>${t.sub}</small></div></div>
+  <div class="tpl-body"><div class="codebox" style="--c:${t.color}">${t.code.replace(/\n/g,'<br>')}</div>
+  <div class="tpl-note">⚠️ ${t.note}</div>
+  <div class="warn">❗ <b>El uso incorrecto o incompleto de la plantilla puede provocar que el reporte no sea tomado en cuenta.</b></div>
+  <button class="copy-btn" onclick="copyTpl(this,'${t.id}')">📎 Copiar plantilla</button></div>`;
+  grid.appendChild(d);
+ });
+ if(!grid.innerHTML) grid.innerHTML='<p style="color:#777">Sin resultados para tu búsqueda.</p>';
+}
+render();
+document.getElementById('tabs').addEventListener('click',e=>{
+ if(e.target.classList.contains('tab')){document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));e.target.classList.add('active');render(e.target.dataset.f,document.getElementById('search').value);}
+});
+document.getElementById('search').addEventListener('input',e=>{render(document.querySelector('.tab.active').dataset.f,e.target.value);});
+function copyTpl(btn,id){
+ const t=TPLS.find(x=>x.id===id);
+ navigator.clipboard.writeText(t.code).then(()=>{btn.classList.add('ok');btn.textContent='✅ ¡Copiado!';setTimeout(()=>{btn.classList.remove('ok');btn.textContent='📎 Copiar plantilla';},1800);});
+}
+
+// Typewriter
+const lines=['Bienvenido al <span>Staff Team</span> de SylenMC...','Reporta • Sanciona • Protege la <span>Network</span>...','Edición <span>BLACK CINEMATIC</span> ⚡'];
+let li=0,ci=0,del=false;const tw=document.getElementById('typewriter');
+(function type(){const cur=lines[li];ci+=del?-2:1;
+ tw.innerHTML=cur.slice(0,ci).replace(/<span>/g,'<span>').replace(/<\/span/g,'</span')+ '<span style="animation:blink 1s infinite">|</span>';
+ if(!del&&ci>=cur.length+20){del=true;} if(del&&ci<=0){del=false;li=(li+1)%lines.length;}
+ setTimeout(type,del?25:55);})();
+
+// Marquee
+const m='SYLENMC NETWORK <b>✦</b> STAFF PAGE <b>✦</b> BLACK EDITION <b>✦</b> PUNISH <b>✦</b> MUTES <b>✦</b> EVADING <b>✦</b> REVIVES <b>✦</b> ';
+document.getElementById('marquee').innerHTML=(m+m+m+m).replace(/</g,'<');
+
+// Reveal on scroll
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// Counters
+const cio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const el=e.target,end=+el.dataset.count;let n=0;const iv=setInterval(()=>{n++;el.textContent=n;if(n>=end)clearInterval(iv)},80);cio.unobserve(el)}}),{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
+
+// Particles
+const cv=document.getElementById('particles'),ctx=cv.getContext('2d');let P=[];
+function resize(){cv.width=innerWidth;cv.height=innerHeight}resize();addEventListener('resize',resize);
+for(let i=0;i<90;i++)P.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,r:Math.random()*2+.5,a:Math.random()*.6+.2});
+(function loop(){ctx.clearRect(0,0,cv.width,cv.height);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>cv.width)p.vx*=-1;if(p.y<0||p.y>cv.height)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,7);ctx.fillStyle=`rgba(255,255,255,${p.a})`;ctx.fill()});requestAnimationFrame(loop)})();
+
+// Cursor
+const cur=document.getElementById('cursor'),dot=document.getElementById('cursorDot');
+addEventListener('mousemove',e=>{cur.style.left=e.clientX-9+'px';cur.style.top=e.clientY-9+'px';dot.style.left=e.clientX-2+'px';dot.style.top=e.clientY-2+'px';});
+document.querySelectorAll('a,.tab,.copy-btn,.guide-card').forEach(el=>{el.addEventListener('mouseenter',()=>cur.style.transform='scale(2)');el.addEventListener('mouseleave',()=>cur.style.transform='scale(1)')});
+
+// Preloader + cinema
+addEventListener('load',()=>setTimeout(()=>document.getElementById('preloader').classList.add('hide'),1600));
+setTimeout(()=>document.getElementById('preloader').classList.add('hide'),3500);
+function toggleCinema(){document.body.classList.toggle('cinematic')}
+document.getElementById('cinemaBtn').onclick=toggleCinema;
+const toTop=document.getElementById('toTop');
+addEventListener('scroll',()=>{toTop.classList.toggle('show',scrollY>600)});
+toTop.onclick=()=>scrollTo({top:0,behavior:'smooth'});
+</script>
+</body>
+</html>
