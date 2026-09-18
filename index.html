@@ -534,12 +534,11 @@ footer p{color:#666;font-size:.82rem;margin-top:12px}
 <button id="toTop">↑</button>
 <button id="cinemaBtn" onclick="toggleCinema()">🎬 CINE</button>
 
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-// ☁️ FASE 2 — pega aquí tu config de Firebase Web y pon ON:true para datos en vivo.
-// Se consigue en: Firebase Console → Configuración → Tus apps → Web (ver sylenmc-bot/README.md)
-var SYLENMC_CLOUD={ON:false,apiKey:"PEGA_AQUI",authDomain:"TU-PROYECTO.firebaseapp.com",databaseURL:"https://TU-PROYECTO-default-rtdb.firebaseio.com",projectId:"TU-PROYECTO"};
+// ☁️ FASE 2 — pega aquí tu Project URL + clave ANON (pública) y pon ON:true para datos en vivo.
+// Se consigue en: Supabase Dashboard → Project Settings → API (ver sylenmc-bot/README.md)
+var SYLENMC_CLOUD={ON:false,URL:"https://TU-PROYECTO.supabase.co",ANON:"PEGA_AQUI_TU_ANON_KEY"};
 </script>
 <script>
 let LANG=localStorage.getItem('sylenmc-lang')||'es';
@@ -620,8 +619,8 @@ function renderSotm(){const s=DB.sotm;if(!s)return;
  document.querySelector('.dc-frame').className='dc-frame '+(s.deco||'deco-gold');
  const d=new Date();document.getElementById('sotmMonth').textContent=d.toLocaleString(LANG==='en'?'en-US':'es-ES',{month:'long',year:'numeric'});
 }
-function renderBoard(){const b=document.getElementById('pointsBoard');if(!b)return;const e=Object.entries(DB.points).sort((a,c)=>c[1]-a[1]);
- b.innerHTML=e.length?e.map(([n,p])=>`<div class="pb-row"><img loading="lazy" src="${mcHead(n)}" onerror="this.src='https://minotar.net/helm/MHF_Steve/100.png'" alt=""><span>${n}</span><b>${p} pts</b></div>`).join(''):`<p style="color:#666;font-size:.82rem">${LANG==='en'?'No points yet. Add members from the admin panel.':'Aún no hay puntos. Agrega miembros desde el panel admin.'}</p>`;
+function renderBoard(){const b=document.getElementById('pointsBoard');if(!b)return;const num=v=>(v&&typeof v==='object'?(v.pts||0):(v||0));const e=Object.entries(DB.points).sort((a,c)=>num(c[1])-num(a[1]));
+ b.innerHTML=e.length?e.map(([k,v])=>{const nm=(v&&(v.mc||v.dc))||k;const skin=(v&&v.mc)||k;return `<div class="pb-row"><img loading="lazy" src="${mcHead(nm)}" onerror="this.src='https://minotar.net/helm/MHF_Steve/100.png'" alt=""><span>${nm}</span><b>${(v&&v.pts)||v||0} pts</b></div>`}).join(''):`<p style="color:#666;font-size:.82rem">${LANG==='en'?'No points yet. Add members from the admin panel.':'Aún no hay puntos. Agrega miembros desde el panel admin.'}</p>`;
  const log=document.getElementById('ptsLog');if(log)log.innerHTML=(DB.log||[]).slice(0,30).map(x=>`<div>${x}</div>`).join('')||(LANG==='en'?'No movements yet.':'Sin movimientos aún.');
 }
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.remove('hidden');setTimeout(()=>t.classList.add('hidden'),2400)}
@@ -673,17 +672,24 @@ $('btnPAdd').onclick=()=>movePts(1);$('btnPSub').onclick=()=>movePts(-1);
 $('btnPClear').onclick=()=>{if(!ADMIN)return;if(CLOUD)return toast(LANG==='en'?'Reset from the bot':'Reinicia desde el bot');if(!confirm('¿Reiniciar puntos?'))return;DB.points={};DB.log.unshift('🗑 Puntos reiniciados ('+new Date().toLocaleString()+')');saveDB(DB);renderBoard()};
 renderSotm();
 
-// ---- NUBE (Firebase en vivo, fase 2: bot + web) ----
+// ---- NUBE (Supabase en vivo, fase 2: bot + web) ----
 let CLOUD=false;
 function cloudCmd(t){navigator.clipboard.writeText(t).then(()=>toast(LANG==='en'?'Command copied, paste it in Discord 📋':'Comando copiado, pégalo en Discord 📋'))}
 try{
- if(typeof SYLENMC_CLOUD!=='undefined'&&SYLENMC_CLOUD.ON&&typeof firebase!=='undefined'){
-  firebase.initializeApp(SYLENMC_CLOUD);CLOUD=true;
-  const cdb=firebase.database();
-  cdb.ref('sotm').on('value',s=>{if(s.exists()&&s.val()){DB.sotm=s.val();saveDB(DB);renderSotm()}});
-  cdb.ref('points').on('value',s=>{if(s.exists()){DB.points=s.val()||{};saveDB(DB);renderBoard();if(DB.sotm&&DB.sotm.mc&&DB.points[DB.sotm.mc]!=null){DB.sotm.pts=DB.points[DB.sotm.mc];saveDB(DB);renderSotm()}}});
-  cdb.ref('log').limitToLast(30).on('value',s=>{if(s.exists()){const v=Object.values(s.val());DB.log=v.map(x=>(x&&x.text)||x).reverse();saveDB(DB);renderBoard()}});
-  document.querySelectorAll('.admin-note').forEach(el=>{el.textContent=LANG==='en'?'🟢 Live mode: data comes from Discord/Firebase. The admin buttons copy the bot command to run in Discord.':'🟢 Modo en vivo: los datos vienen de Discord/Firebase. Los botones del admin copian el comando para ejecutarlo en Discord.'});
+ if(typeof SYLENMC_CLOUD!=='undefined'&&SYLENMC_CLOUD.ON&&SYLENMC_CLOUD.URL&&SYLENMC_CLOUD.URL.indexOf('http')===0&&typeof supabase!=='undefined'){
+  const supa=supabase.createClient(SYLENMC_CLOUD.URL,SYLENMC_CLOUD.ANON);CLOUD=true;
+  async function pull(){try{
+   const p=await supa.from('points').select('*');
+   if(!p.error&&p.data){DB.points={};p.data.forEach(r=>{DB.points[r.id]={mc:r.mc,dc:r.dc,premium:r.premium,pts:r.pts}});saveDB(DB);renderBoard();
+    if(DB.sotm&&DB.sotm.mc){const f=p.data.find(r=>r.mc===DB.sotm.mc);if(f&&f.pts!=null){DB.sotm.pts=f.pts;saveDB(DB)}}
+    renderSotm()}
+   const s=await supa.from('sotm').select('*').eq('id',1).maybeSingle();
+   if(!s.error&&s.data&&s.data.mc){DB.sotm={mc:s.data.mc,dcId:s.data.dc_id,dcName:s.data.dc_name,dcAv:s.data.dc_av,deco:s.data.deco||'deco-gold',pts:s.data.pts||0};saveDB(DB);renderSotm()}
+   const l=await supa.from('log').select('text').order('id',{ascending:false}).limit(30);
+   if(!l.error&&l.data){DB.log=l.data.map(r=>r.text);saveDB(DB);renderBoard()}
+  }catch(e){}}
+  pull();setInterval(pull,15000);
+  document.querySelectorAll('.admin-note').forEach(el=>{el.textContent=LANG==='en'?'🟢 Live mode: data comes from Discord/Supabase. The admin buttons copy the bot command to run in Discord.':'🟢 Modo en vivo: los datos vienen de Discord/Supabase. Los botones del admin copian el comando para ejecutarlo en Discord.'});
  }
 }catch(e){CLOUD=false}
 
