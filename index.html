@@ -684,7 +684,7 @@ try{
     if(DB.sotm&&DB.sotm.mc){const want=String(DB.sotm.mc).toLowerCase().trim();const f=p.data.find(r=>String(r.mc||'').toLowerCase().trim()===want);if(f&&f.pts!=null){DB.sotm.pts=f.pts;if(f.platform)DB.sotm.platform=f.platform;saveDB(DB)}}
     renderSotm()}
    const s=await supa.from('sotm').select('*').eq('id',1).maybeSingle();
-   if(!s.error&&s.data&&s.data.mc){DB.sotm={mc:s.data.mc,dcId:s.data.dc_id,dcName:s.data.dc_name,dcAv:s.data.dc_av,deco:s.data.deco||'deco-gold',pts:s.data.pts||0,platform:s.data.platform||'java'};saveDB(DB);renderSotm()}
+   if(!s.error&&s.data&&s.data.mc){const want=String(s.data.mc).toLowerCase().trim();let pts=s.data.pts||0;const f2=Object.values(DB.points).find(r=>String((r&&r.mc)||'').toLowerCase().trim()===want);if(f2&&f2.pts!=null)pts=f2.pts;DB.sotm={mc:s.data.mc,dcId:s.data.dc_id,dcName:s.data.dc_name,dcAv:s.data.dc_av,deco:s.data.deco||'deco-gold',pts:pts,platform:s.data.platform||(f2&&f2.platform)||'java'};saveDB(DB);renderSotm()}
    const l=await supa.from('log').select('text').order('id',{ascending:false}).limit(30);
    if(!l.error&&l.data){DB.log=l.data.map(r=>r.text);saveDB(DB);renderBoard()}
   }catch(e){}}
