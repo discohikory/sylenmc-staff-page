@@ -30,7 +30,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overf
 @keyframes loadbar{to{transform:translateX(100%)}}
 .loader-text{margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:.75rem;letter-spacing:.3em;color:#777;text-transform:uppercase;animation:blink 1s infinite alternate}
 @keyframes blink{to{opacity:.4}}
-.cinema-bars{position:fixed;left:0;right:0;height:0;background:#000;z-index:9998;transition:height 1.2s cubic-bezier(.8,0,.2,1)}
+.cinema-bars{position:fixed;left:0;right:0;height:0;background:#000;z-index:90;transition:height 1.2s cubic-bezier(.8,0,.2,1);pointer-events:none}
 .cinema-bars.top{top:0}.cinema-bars.bottom{bottom:0}
 body.cinematic .cinema-bars{height:8vh}
 
@@ -191,7 +191,7 @@ footer p{color:#666;font-size:.82rem;margin-top:12px}
 .entrance small{font-family:'JetBrains Mono',monospace;letter-spacing:.4em;color:#666;font-size:.7rem;text-transform:uppercase}
 </style>
 </head>
-<body class="cinematic">
+<body>
 
 <div id="preloader">
   <div class="loader-logo"><span>SYLENMC</span></div>
