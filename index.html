@@ -643,7 +643,7 @@ $('btnCheckMc').onclick=async()=>{const n=$('fMc').value.trim();if(!n)return toa
  $('mcStatus').textContent='⏳...';
  try{const r=await fetch('https://playerdb.co/api/player/minecraft/'+encodeURIComponent(n));const j=await r.json();
   if(j.success){$('mcPreview').src=j.data.player.avatar;$('mcPreview').classList.remove('hidden');$('mcStatus').textContent='✅ Premium verificado: '+j.data.player.username;toast('✅ Minecraft verificado')}
-  else{$('mcPreview').src=mcHead(n);$('mcPreview').classList.remove('hidden');$('mcStatus').textContent='⚠️ Sin cuenta premium, se usará skin genérica.'}
+  else{$('mcPreview').src=mcHead(n);$('mcPreview').classList.remove('hidden');$('mcStatus').textContent='🖥️ Cuenta no premium: se registra igual con skin genérica.'}
  }catch(e){$('mcPreview').src=mcHead(n);$('mcPreview').classList.remove('hidden');$('mcStatus').textContent='⚠️ Sin conexión al verificador, vista previa local.'}
 };
 // Buscar en Discord (Lanyard, si el usuario está registrado)
