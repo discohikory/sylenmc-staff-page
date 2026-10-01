@@ -38,7 +38,6 @@ h1{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(1.5rem,4.5vw,2.4re
 .stamp-red{width:170px;height:170px;transform:rotate(-12deg);opacity:.92}
 .verify{font-family:'Courier New',monospace;font-size:.78rem;background:#f4efe2;border:1px dashed var(--gold2);border-radius:4px;padding:14px 16px;margin:18px 0;line-height:2}
 .verify b{font-family:Arial,sans-serif}
-.disclaimer{font-size:.8rem;font-style:italic;color:#555;text-align:center;margin-top:16px}
 .doc-foot{text-align:center;margin-top:26px;padding-top:16px;border-top:2px solid var(--gold2);font-size:.85rem;color:#333;line-height:2}
 .doc-foot b{color:#000}
 @media(max-width:640px){.sheet{padding:34px 22px}.meta{flex-direction:column}}
@@ -48,6 +47,7 @@ h1{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(1.5rem,4.5vw,2.4re
 <body>
 <div class="topbar">
   <button id="langBtn" type="button">EN</button>
+  <button type="button" id="pdfBtn" data-es="⬇ Descargar PDF" data-en="⬇ Download PDF">⬇ Descargar PDF</button>
   <button type="button" onclick="window.print()" data-es="🖨 Imprimir / PDF" data-en="🖨 Print / PDF">🖨 Imprimir / PDF</button>
   <a href="index.html" data-es="← Staff Page" data-en="← Staff Page">← Staff Page</a>
   <a href="https://discord.gg/uQFkw4ssKJ" target="_blank" rel="noopener">💎 Discord</a>
@@ -79,7 +79,7 @@ h1{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(1.5rem,4.5vw,2.4re
 
   <div class="meta">
     <span data-es="Versión: 1.0" data-en="Version: 1.0">Versión: 1.0</span>
-    <span data-es="Emitido: octubre 2026" data-en="Issued: October 2026">Emitido: octubre 2026</span>
+    <span data-es="Emitido: 07/2026" data-en="Issued: 07/2026">Emitido: 07/2026</span>
     <span data-es="Titular: SylenMC Network®" data-en="Holder: SylenMC Network®">Titular: SylenMC Network®</span>
   </div>
 
@@ -107,17 +107,7 @@ h1{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(1.5rem,4.5vw,2.4re
   </div>
 
   <div class="art">
-    <h2 data-es="Artículo 4 — Construcciones de jugadores y staff" data-en="Article 4 — Player and staff builds">Artículo 4 — Construcciones de jugadores y staff</h2>
-    <ul>
-      <li data-es="Al construir dentro de SylenMC otorgas al servidor una <b>licencia de uso, exhibición y modificación</b> de tus construcciones dentro del proyecto." data-en="By building inside SylenMC you grant the server a <b>license to use, display and modify</b> your builds within the project.">Al construir dentro de SylenMC otorgas al servidor una <b>licencia de uso, exhibición y modificación</b> de tus construcciones dentro del proyecto.</li>
-      <li data-es="Si abandonas el servidor, tus construcciones <b>pueden permanecer</b> como parte del mapa." data-en="If you leave the server, your builds <b>may remain</b> as part of the map.">Si abandonas el servidor, tus construcciones <b>pueden permanecer</b> como parte del mapa.</li>
-      <li data-es="Siempre que sea razonable, la administración dará <b>crédito a los autores</b> de builds destacadas." data-en="Whenever reasonable, the administration will <b>credit the authors</b> of featured builds.">Siempre que sea razonable, la administración dará <b>crédito a los autores</b> de builds destacadas.</li>
-      <li data-es="<b>Prohibido</b> destruir, griefear o apropiarse de la construcción de otro jugador." data-en="<b>Forbidden</b> to destroy, grief or claim another player's build."><b>Prohibido</b> destruir, griefear o apropiarse de la construcción de otro jugador.</li>
-    </ul>
-  </div>
-
-  <div class="art">
-    <h2 data-es="Artículo 5 — Usos permitidos" data-en="Article 5 — Allowed uses">Artículo 5 — Usos permitidos</h2>
+    <h2 data-es="Artículo 4 — Usos permitidos" data-en="Article 4 — Allowed uses">Artículo 4 — Usos permitidos</h2>
     <ul>
       <li data-es="Jugar, grabar y hacer stream del servidor <b>mencionando a SylenMC Network</b>." data-en="Play, record and stream the server <b>mentioning SylenMC Network</b>.">Jugar, grabar y hacer stream del servidor <b>mencionando a SylenMC Network</b>.</li>
       <li data-es="Crear fanarts y memes de la comunidad <b>con crédito al servidor</b>." data-en="Create community fanarts and memes <b>crediting the server</b>.">Crear fanarts y memes de la comunidad <b>con crédito al servidor</b>.</li>
@@ -126,7 +116,7 @@ h1{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(1.5rem,4.5vw,2.4re
   </div>
 
   <div class="art">
-    <h2 data-es="Artículo 6 — Usos prohibidos" data-en="Article 6 — Forbidden uses">Artículo 6 — Usos prohibidos</h2>
+    <h2 data-es="Artículo 5 — Usos prohibidos" data-en="Article 5 — Forbidden uses">Artículo 5 — Usos prohibidos</h2>
     <ul>
       <li data-es="Copiar mapas, esquemáticas o builds del servidor a otros proyectos." data-en="Copy server maps, schematics or builds to other projects.">Copiar mapas, esquemáticas o builds del servidor a otros proyectos.</li>
       <li data-es="Vender, revender o monetizar contenido, rangos o accesos de SylenMC fuera de su tienda oficial." data-en="Sell, resell or monetize SylenMC content, ranks or access outside its official store.">Vender, revender o monetizar contenido, rangos o accesos de SylenMC fuera de su tienda oficial.</li>
@@ -136,12 +126,12 @@ h1{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(1.5rem,4.5vw,2.4re
   </div>
 
   <div class="art">
-    <h2>Artículo 7 — Mojang · Microsoft</h2>
+    <h2>Artículo 6 — Mojang · Microsoft</h2>
     <p data-es="SylenMC Network <b>no está afiliado a Mojang ni a Microsoft</b>. Minecraft es marca registrada de Mojang Synergies AB. El servidor respeta el EULA de Minecraft y exige a sus jugadores respetarlo también." data-en="SylenMC Network is <b>not affiliated with Mojang or Microsoft</b>. Minecraft is a registered trademark of Mojang Synergies AB. The server follows the Minecraft EULA and requires its players to follow it as well.">SylenMC Network <b>no está afiliado a Mojang ni a Microsoft</b>. Minecraft es marca registrada de Mojang Synergies AB. El servidor respeta el EULA de Minecraft y exige a sus jugadores respetarlo también.</p>
   </div>
 
   <div class="art">
-    <h2 data-es="Artículo 8 — Reclamos por plagio" data-en="Article 8 — Plagiarism claims">Artículo 8 — Reclamos por plagio</h2>
+    <h2 data-es="Artículo 7 — Reclamos por plagio" data-en="Article 7 — Plagiarism claims">Artículo 7 — Reclamos por plagio</h2>
     <p data-es="Si alguien copia contenido de SylenMC —o si SylenMC usó tu contenido por error—, abre un ticket en el Discord oficial con:" data-en="If someone copies SylenMC content —or if SylenMC mistakenly used your content—, open a ticket on the official Discord with:">Si alguien copia contenido de SylenMC —o si SylenMC usó tu contenido por error—, abre un ticket en el Discord oficial con:</p>
     <ul>
       <li data-es="<b>Pruebas:</b> capturas, videos, fechas y nicks involucrados." data-en="<b>Evidence:</b> screenshots, videos, dates and involved nicks."><b>Pruebas:</b> capturas, videos, fechas y nicks involucrados.</li>
@@ -151,7 +141,7 @@ h1{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(1.5rem,4.5vw,2.4re
   </div>
 
   <div class="art">
-    <h2 data-es="Artículo 9 — Sanciones" data-en="Article 9 — Penalties">Artículo 9 — Sanciones</h2>
+    <h2 data-es="Artículo 8 — Sanciones" data-en="Article 8 — Penalties">Artículo 8 — Sanciones</h2>
     <ul>
       <li data-es="Violar estos derechos puede resultar en <b>expulsión permanente</b> del servidor y del Discord." data-en="Violating these rights can result in a <b>permanent ban</b> from the server and Discord.">Violar estos derechos puede resultar en <b>expulsión permanente</b> del servidor y del Discord.</li>
       <li data-es="Casos graves se <b>reportan a las plataformas</b> correspondientes (Discord, YouTube, TikTok, etc.)." data-en="Serious cases are <b>reported to the corresponding platforms</b> (Discord, YouTube, TikTok, etc.).">Casos graves se <b>reportan a las plataformas</b> correspondientes (Discord, YouTube, TikTok, etc.).</li>
@@ -159,7 +149,7 @@ h1{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(1.5rem,4.5vw,2.4re
   </div>
 
   <div class="art">
-    <h2 data-es="Artículo 10 — Vigencia y contacto" data-en="Article 10 — Validity and contact">Artículo 10 — Vigencia y contacto</h2>
+    <h2 data-es="Artículo 9 — Vigencia y contacto" data-en="Article 9 — Validity and contact">Artículo 9 — Vigencia y contacto</h2>
     <p data-es="Este documento rige desde su publicación y la administración puede actualizarlo avisando en el Discord oficial: <b>discord.gg/uQFkw4ssKJ</b>. Jugar en SylenMC implica aceptar estas condiciones." data-en="This document applies from its publication date, and the administration may update it with notice on the official Discord: <b>discord.gg/uQFkw4ssKJ</b>. Playing on SylenMC means accepting these terms.">Este documento rige desde su publicación y la administración puede actualizarlo avisando en el Discord oficial: <b>discord.gg/uQFkw4ssKJ</b>. Jugar en SylenMC implica aceptar estas condiciones.</p>
   </div>
 
@@ -187,13 +177,6 @@ h1{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(1.5rem,4.5vw,2.4re
     </div>
   </div>
 
-  <div class="verify">
-    <b>FOLIO:</b> SM-2026-001 &nbsp;|&nbsp; <b data-es="CÓDIGO:" data-en="CODE:">CÓDIGO:</b> SYL-©-2026-10<br>
-    <b data-es="VERIFICAR EN:" data-en="VERIFY AT:">VERIFICAR EN:</b> https://discohikory.github.io/sylenmc-staff-page/derechos-autor.html
-  </div>
-
-  <p class="disclaimer" data-es="Documento de política interna de SylenMC Network. No constituye asesoría legal. Para disputas formales se recomienda consultar a un profesional del derecho de tu país." data-en="Internal policy document of SylenMC Network. It does not constitute legal advice. For formal disputes, consult a legal professional in your country.">Documento de política interna de SylenMC Network. No constituye asesoría legal. Para disputas formales se recomienda consultar a un profesional del derecho de tu país.</p>
-
   <div class="doc-foot">
     SYLENMC NETWORK® — DOCUMENTO OFICIAL Nº SM-2026-001<br>
     © 2026 SylenMC Network®. Todos los derechos reservados. Prohibida su reproducción sin autorización.<br>
@@ -201,6 +184,8 @@ h1{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(1.5rem,4.5vw,2.4re
   </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 var LANG='es';
 try{LANG=localStorage.getItem('sylenmc-lang')||'es';}catch(e){}
@@ -216,6 +201,27 @@ document.getElementById('langBtn').textContent=(l==='en')?'ES':'EN';
 }
 document.getElementById('langBtn').addEventListener('click',function(){applyLang(LANG==='en'?'es':'en');});
 applyLang(LANG);
+document.getElementById('pdfBtn').addEventListener('click',function(){
+var b=this,orig=b.textContent;
+b.textContent=(LANG==='en')?'⏳ Generating…':'⏳ Generando…';b.disabled=true;
+function done(){b.textContent=orig;b.disabled=false;}
+if(!window.html2canvas||!window.jspdf){alert(LANG==='en'?'PDF libraries did not load. Check your connection.':'No cargaron las librerías PDF. Revisa tu conexión.');done();return;}
+html2canvas(document.querySelector('.sheet'),{scale:2,useCORS:true,backgroundColor:'#fffdf7'}).then(function(cv){
+try{
+var pdf=new window.jspdf.jsPDF({unit:'mm',format:'a4'});
+var m=12,iw=210-m*2,pagePx=(297-m*2)*cv.width/iw,pages=Math.ceil(cv.height/pagePx);
+for(var i=0;i<pages;i++){
+if(i>0)pdf.addPage();
+var sy=i*pagePx,hh=Math.min(pagePx,cv.height-sy);
+var pc=document.createElement('canvas');pc.width=cv.width;pc.height=hh;
+pc.getContext('2d').drawImage(cv,0,sy,cv.width,hh,0,0,cv.width,hh);
+pdf.addImage(pc.toDataURL('image/jpeg',0.92),'JPEG',m,m,iw,hh*iw/cv.width);
+}
+pdf.save('SylenMC-Derechos-de-Autor-SM-2026-001.pdf');
+}catch(e){alert(LANG==='en'?'Could not generate the PDF.':'No se pudo generar el PDF.');}
+done();
+}).catch(function(){alert(LANG==='en'?'Could not generate the PDF.':'No se pudo generar el PDF.');done();});
+});
 </script>
 </body>
 </html>
