@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SylenMC Network — Revisar Postulaciones (Staff)</title>
+<meta name="robots" content="noindex,nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--bg:#050507;--card:#111118;--card2:#16161f;--border:#26262f;--muted:#a1a1ad;--gold:#e8c15a;--green:#2effa1;--red:#ff2d55;--blue:#5aa8ff}
+*{box-sizing:border-box}body{background:var(--bg);color:#fff;font-family:Inter,sans-serif;margin:0;padding:20px}
+.wrap{max-width:1000px;margin:0 auto}
+h1{font-family:Cinzel,serif;text-align:center}h1 span{background:#000;border:1px solid #444;padding:0 12px;border-radius:10px}
+.sub{color:var(--muted);text-align:center;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:14px}
+.card h3{margin:0 0 10px;font-size:.95rem;letter-spacing:.05em}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+input,textarea,select{background:#000;border:1px solid #333;border-radius:10px;color:#fff;padding:11px;font-family:inherit;font-size:.88rem}
+input,select{min-width:0}textarea{width:100%;min-height:70px;resize:vertical}
+button{padding:11px 20px;border-radius:100px;border:none;background:#fff;color:#000;font-weight:800;cursor:pointer;font-size:.88rem}
+button.ghost{background:transparent;color:#fff;border:1px solid #444}
+button.danger{background:var(--red);color:#fff}
+button:disabled{opacity:.5}
+small.hint{color:var(--muted);display:block;margin-top:8px;line-height:1.6}
+.warn{background:rgba(255,45,85,.08);border:1px solid rgba(255,45,85,.4);border-radius:12px;padding:12px 14px;font-size:.85rem;color:#ffb3c1;margin-bottom:14px}
+pre.sql{background:#000;border:1px solid #333;border-radius:10px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:.75rem;overflow-x:auto;white-space:pre-wrap;color:#d6d6de}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.stat{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:8px 14px;font-size:.8rem}
+.stat b{color:var(--gold)}
+.app{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:14px}
+.app-head{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.badge{font-size:.72rem;font-weight:800;letter-spacing:.06em;padding:5px 12px;border-radius:100px;background:#222;border:1px solid #444}
+.badge.gold{background:rgba(232,193,90,.15);border-color:var(--gold);color:var(--gold)}
+.app details{margin-top:8px}
+.app summary{cursor:pointer;color:var(--blue);font-weight:700;font-size:.88rem}
+.qa{border-top:1px solid rgba(255,255,255,.07);padding:9px 0;font-size:.88rem}
+.qa b{color:var(--gold);display:block;margin-bottom:3px}
+.qa div{white-space:pre-wrap;color:#e6e6ec}
+.verdict{border-radius:12px;padding:14px;margin-top:10px;background:#0a0a0f;border:1px solid #333}
+.verdict.ok{border-color:var(--green)} .verdict.no{border-color:var(--red)} .verdict.mid{border-color:var(--gold)}
+.vrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.score{font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:700}
+.vbadge{font-weight:800;padding:6px 16px;border-radius:100px;font-size:.8rem;letter-spacing:.08em}
+.vbadge.ok{background:var(--green);color:#00331a}.vbadge.no{background:var(--red);color:#fff}.vbadge.mid{background:var(--gold);color:#3a2a00}
+.verdict ul{margin:6px 0;padding-left:20px;font-size:.86rem;color:#e6e6ec}
+.verdict .note{font-size:.86rem;color:var(--muted);margin-top:6px}
+footer{text-align:center;color:var(--muted);font-size:.78rem;margin:24px 0 10px;line-height:2}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1><span>SYLEN</span>MC — REVISAR POSTULACIONES</h1>
+<p class="sub">Página privada del staff · No compartas este link · Las claves IA se guardan solo en tu navegador</p>
+<div class="warn">🔒 Las respuestas las protege Supabase (RLS). Si ves error de lectura, ejecuta el SQL de ayuda o entra con tu cuenta de staff.</div>
+
+<div class="card">
+  <h3>1 · Conexión Supabase</h3>
+  <div class="row">
+    <input id="sbUrl" style="flex:2" value="https://smwduccwkslhlavxjyxn.supabase.co" placeholder="Project URL">
+    <input id="sbKey" style="flex:3" value="sb_publishable__qUlEoYpMP_xw6MFfNw2lA_UuWvyka5" placeholder="Clave ANON/publicable" type="password">
+  </div>
+  <div class="row" style="margin-top:10px">
+    <input id="sbMail" style="flex:2" placeholder="tu-correo@staff.com (opcional)" autocomplete="off">
+    <input id="sbPass" style="flex:2" type="password" placeholder="Contraseña (opcional)" autocomplete="off">
+    <button id="btnLogin" type="button">Entrar</button>
+    <button id="btnLoad" type="button" class="ghost">Ver sin login</button>
+  </div>
+  <small class="hint" id="connMsg">Sin conectar. El login usa Supabase Auth (crea tu usuario en Dashboard → Authentication → Users).</small>
+  <details style="margin-top:10px"><summary style="cursor:pointer;color:var(--blue);font-size:.85rem">¿Error de lectura? SQL para permitir ver postulaciones</summary>
+  <pre class="sql" id="rlsSql">drop policy if exists "read_apply" on sylenmc_applies;
+create policy "read_apply" on sylenmc_applies
+for select to anon, authenticated using (true);</pre>
+  <button type="button" class="ghost" onclick="navigator.clipboard.writeText(document.getElementById('rlsSql').textContent).then(()=>alert('SQL copiado. Pégalo en Supabase → SQL Editor → Run.'))">📋 Copiar SQL</button></details>
+</div>
+
+<div class="card">
+  <h3>2 · IA evaluadora (elige proveedor + pega tu clave)</h3>
+  <div class="row">
+    <select id="aiProv">
+      <option value="pollinations">Pollinations (gratis, sin clave)</option>
+      <option value="openai">ChatGPT · OpenAI</option>
+      <option value="gemini">Gemini · Google</option>
+      <option value="anthropic">Claude · Anthropic</option>
+      <option value="openrouter">OpenRouter (muchos modelos)</option>
+      <option value="custom">Personalizado (compatible OpenAI)</option>
+    </select>
+    <input id="aiKey" style="flex:2" type="password" placeholder="API key (no necesaria en Pollinations)">
+    <input id="aiModel" style="flex:1" placeholder="Modelo (vacío = por defecto)">
+  </div>
+  <div class="row hidden" id="customRow" style="margin-top:10px">
+    <input id="aiUrl" style="flex:3" placeholder="https://tu-proxy-o-api/v1/chat/completions">
+  </div>
+  <small class="hint">Modelos por defecto: OpenAI <b>gpt-4o-mini</b> · Gemini <b>gemini-2.0-flash</b> · Claude <b>claude-3-5-haiku-latest</b> · OpenRouter <b>openai/gpt-4o-mini</b>. La clave queda solo en tu navegador (localStorage).</small>
+</div>
+
+<div class="card">
+  <h3>3 · Postulaciones</h3>
+  <div class="row">
+    <select id="fRango"><option value="">Todos los rangos</option></select>
+    <input id="fQ" style="flex:2" placeholder="Buscar nick o Discord...">
+    <button id="btnReload" type="button" class="ghost">↻ Recargar</button>
+  </div>
+  <div class="stats" id="stats" style="margin-top:12px"></div>
+</div>
+
+<div id="list"><p class="sub">Conéctate para ver las postulaciones.</p></div>
+
+<footer>© 2026 SylenMC Network®. Todos los derechos reservados. Prohibida su reproducción sin autorización.<br>© 2026 Discohikorybrs® - Daniel Esteban Vera Fernandez. Todos los derechos reservados.</footer>
+</div>
+
+<script>
+var sb=null,DATA=[];
+var DEF_MODEL={openai:'gpt-4o-mini',gemini:'gemini-2.0-flash',anthropic:'claude-3-5-haiku-latest',openrouter:'openai/gpt-4o-mini',pollinations:'',custom:''};
+function conn(){return {url:document.getElementById('sbUrl').value.trim(),key:document.getElementById('sbKey').value.trim()};}
+function client(){var c=conn();sb=supabase.createClient(c.url,c.key);return sb;}
+document.getElementById('aiProv').addEventListener('change',function(){
+document.getElementById('customRow').classList.toggle('hidden',this.value!=='custom');
+var k='sylenmc_ai_'+this.value;
+document.getElementById('aiKey').value=localStorage.getItem(k+'_key')||'';
+document.getElementById('aiModel').value=localStorage.getItem(k+'_model')||'';
+});
+document.getElementById('aiKey').addEventListener('input',function(){localStorage.setItem('sylenmc_ai_'+document.getElementById('aiProv').value+'_key',this.value);});
+document.getElementById('aiModel').addEventListener('input',function(){localStorage.setItem('sylenmc_ai_'+document.getElementById('aiProv').value+'_model',this.value);});
+document.getElementById('btnLogin').addEventListener('click',async function(){
+var m=document.getElementById('connMsg');m.textContent='Entrando...';
+try{client();var r=await sb.auth.signInWithPassword({email:document.getElementById('sbMail').value.trim(),password:document.getElementById('sbPass').value});
+if(r.error)throw r.error;m.textContent='✅ Sesión iniciada. Cargando...';load();}
+catch(e){m.textContent='❌ '+e.message;}});
+document.getElementById('btnLoad').addEventListener('click',function(){client();load();});
+document.getElementById('btnReload').addEventListener('click',function(){if(sb)load();});
+document.getElementById('fQ').addEventListener('input',render);
+document.getElementById('fRango').addEventListener('change',render);
+async function load(){
+var m=document.getElementById('connMsg');m.textContent='Cargando postulaciones...';
+try{var r=await sb.from('sylenmc_applies').select('*').order('created_at',{ascending:false}).limit(300);
+if(r.error)throw r.error;DATA=r.data||[];m.textContent='✅ '+DATA.length+' postulaciones cargadas.';
+var rs={};DATA.forEach(function(a){rs[a.rango]=(rs[a.rango]||0)+1;});
+var fr=document.getElementById('fRango'),cur=fr.value;fr.innerHTML='<option value="">Todos los rangos</option>'+Object.keys(rs).sort().map(function(k){return '<option value="'+k+'">'+k+' ('+rs[k]+')</option>'}).join('');fr.value=cur;
+var st=document.getElementById('stats');st.innerHTML='<div class="stat">Total <b>'+DATA.length+'</b></div>'+Object.keys(rs).sort().map(function(k){return '<div class="stat">'+k+' <b>'+rs[k]+'</b></div>'}).join('');
+render();}catch(e){m.textContent='❌ '+e.message+' (¿falta el SQL de ayuda o entrar con cuenta?)';}
+}
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function render(){
+var q=(document.getElementById('fQ').value||'').toLowerCase(),fr=document.getElementById('fRango').value;
+var box=document.getElementById('list');
+var rows=DATA.filter(function(a){if(fr&&a.rango!==fr)return false;if(q&&((a.nick_mc||'')+' '+(a.discord||'')).toLowerCase().indexOf(q)<0)return false;return true;});
+if(!rows.length){box.innerHTML='<p class="sub">Sin resultados.</p>';return;}
+box.innerHTML=rows.map(function(a){
+var ans=a.respuestas||{},keys=Object.keys(ans).filter(function(k){return/^p\d+$/.test(k)}).sort();
+var qa=keys.map(function(k){return '<div class="qa"><b>'+esc(k.toUpperCase())+'</b><div>'+esc(ans[k])+'</div></div>'}).join('');
+var d='';try{d=new Date(a.created_at).toLocaleString();}catch(e){}
+return '<div class="app" id="app'+a.id+'"><div class="app-head"><span class="badge gold">'+esc(a.rango||'?')+'</span><b>'+esc(a.nick_mc||'?')+'</b><span style="color:var(--muted);font-size:.82rem">'+esc(a.discord||'')+'</span><span style="color:var(--muted);font-size:.78rem;margin-left:auto">'+esc(d)+'</span></div>'
++'<div class="row"><button type="button" onclick="evaluar('+a.id+')">🤖 Evaluar con IA</button><button type="button" class="ghost" onclick="copiar('+a.id+')">📋 Copiar</button><button type="button" class="danger" onclick="borrar('+a.id+')">🗑 Borrar</button><span style="font-size:.8rem;color:var(--muted)" id="st'+a.id+'"></span></div>'
++'<div id="v'+a.id+'"></div>'
++'<details><summary>Ver '+keys.length+' respuestas</summary>'+qa+'</details></div>';}).join('');
+}
+function copiar(id){var a=DATA.find(function(x){return x.id===id});if(!a)return;
+var t='['+a.rango+'] '+a.nick_mc+' ('+a.discord+')\n'+Object.keys(a.respuestas||{}).filter(function(k){return/^p\d+$/.test(k)}).sort().map(function(k){return k.toUpperCase()+': '+a.respuestas[k]}).join('\n');
+navigator.clipboard.writeText(t).then(function(){alert('Copiado.');});}
+async function borrar(id){if(!confirm('¿Borrar esta postulación?'))return;
+try{var r=await sb.from('sylenmc_applies').delete().eq('id',id);if(r.error)throw r.error;DATA=DATA.filter(function(x){return x.id!==id});render();}
+catch(e){alert('No se pudo borrar: '+e.message+' (crea policy delete para authenticated en Supabase).');}}
+function promptFor(a){
+var qa=Object.keys(a.respuestas||{}).filter(function(k){return/^p\d+$/.test(k)}).sort().map(function(k){return k.toUpperCase()+': '+(a.respuestas[k]||'')}).join('\n');
+return 'Eres evaluador del staff de SylenMC Network, servidor de Minecraft. Rango postulado: '+a.rango+'. Nick: '+(a.nick_mc||'?')+'. Preguntas y respuestas del candidato:\n'+qa+'\n\nEvalúa y responde SOLO con JSON válido, sin texto extra: {"score":0-100,"verdict":"APTO"|"NO APTO"|"DUDOSO","good":["max 3 aciertos"],"bad":["max 3 errores o riesgos"],"note":"recomendación de 1 línea"}. Español, texto plano, sin markdown.';
+}
+async function callAI(prov,key,model,prompt){
+model=model||DEF_MODEL[prov]||'';
+if(prov==='pollinations'){var r=await fetch('https://text.pollinations.ai/'+encodeURIComponent(prompt));if(!r.ok)throw new Error('Pollinations '+r.status);return await r.text();}
+if(prov==='gemini'){if(!key)throw new Error('Falta API key de Gemini.');
+var g=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(model)+':generateContent?key='+encodeURIComponent(key),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})});
+var gj=await g.json();if(!g.ok)throw new Error((gj.error&&gj.error.message)||('Gemini '+g.status));
+return (gj.candidates&&gj.candidates[0].content.parts||[]).map(function(p){return p.text||''}).join('');}
+if(prov==='anthropic'){if(!key)throw new Error('Falta API key de Claude.');
+var c=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'x-api-key':key,'anthropic-version':'2023-06-01','content-type':'application/json','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:model,max_tokens:900,messages:[{role:'user',content:prompt}]})});
+var cj=await c.json();if(!c.ok)throw new Error((cj.error&&cj.error.message)||('Claude '+c.status));
+return (cj.content||[]).map(function(b){return b.text||''}).join('');}
+var url=prov==='openai'?'https://api.openai.com/v1/chat/completions':(prov==='openrouter'?'https://openrouter.ai/api/v1/chat/completions':document.getElementById('aiUrl').value.trim());
+if(!url)throw new Error('Falta la URL del proveedor personalizado.');
+if(!key&&prov!=='custom')throw new Error('Falta API key.');
+var h={'Content-Type':'application/json'};if(key)h['Authorization']='Bearer '+key;
+if(prov==='openrouter'){h['HTTP-Referer']='https://discohikory.github.io/sylenmc-staff-page/';h['X-Title']='SylenMC Review';}
+var o=await fetch(url,{method:'POST',headers:h,body:JSON.stringify({model:model,messages:[{role:'user',content:prompt}],temperature:0.3})});
+var oj=await o.json();if(!o.ok)throw new Error(((oj.error&&(oj.error.message||oj.error.code)))||('HTTP '+o.status));
+if(oj.choices&&oj.choices[0]&&oj.choices[0].message)return oj.choices[0].message.content;
+throw new Error('Respuesta inesperada del proveedor.');
+}
+async function evaluar(id){
+var a=DATA.find(function(x){return x.id===id});if(!a)return;
+var prov=document.getElementById('aiProv').value,key=document.getElementById('aiKey').value.trim(),model=document.getElementById('aiModel').value.trim();
+var st=document.getElementById('st'+id),box=document.getElementById('v'+id);
+st.textContent='⏳ Evaluando con '+(prov==='pollinations'?'Pollinations (gratis)':prov)+'...';
+try{var raw=await callAI(prov,key,model,promptFor(a));box.innerHTML=paintVerdict(raw);}
+catch(e){box.innerHTML='<div class="verdict no">❌ '+esc(e.message)+'</div>';}
+st.textContent='';
+}
+function paintVerdict(raw){
+var d=null;try{var m=raw.match(/\{[\s\S]*\}/);if(m)d=JSON.parse(m[0]);}catch(e){}
+if(!d||typeof d.score==='undefined')return '<div class="verdict mid"><b>Respuesta de la IA (sin formato):</b><div style="white-space:pre-wrap;font-size:.86rem;margin-top:6px">'+esc(raw)+'</div></div>';
+var v=String(d.verdict||'DUDOSO').toUpperCase(),cls=v.indexOf('APTO')===0&&v.indexOf('NO')<0?'ok':(v.indexOf('NO APTO')>=0?'no':'mid');
+var badge=v.indexOf('APTO')===0&&v.indexOf('NO')<0?'ok':(v.indexOf('NO APTO')>=0?'no':'mid');
+var good=(d.good||[]).map(function(x){return '<li>✅ '+esc(x)+'</li>'}).join('');
+var bad=(d.bad||[]).map(function(x){return '<li>❌ '+esc(x)+'</li>'}).join('');
+return '<div class="verdict '+cls+'"><div class="vrow"><span class="score">'+esc(d.score)+'/100</span><span class="vbadge '+badge+'">'+esc(v)+'</span></div>'
++'<ul>'+good+bad+'</ul><div class="note">💡 '+esc(d.note||'')+'</div></div>';
+}
+</script>
+<script>
+/* anti-inspect: bloqueo basico F12 + atajos devtools + click derecho (disuasorio) */
+(function(){
+  document.addEventListener('keydown',function(e){
+    var k=e.key||'';
+    if(e.keyCode===123||k==='F12'){e.preventDefault();return false}
+    if((e.ctrlKey&&e.shiftKey&&(k==='I'||k==='J'||k==='C'||k==='i'||k==='j'||k==='c'))){e.preventDefault();return false}
+    if((e.ctrlKey&&(k==='U'||k==='u'))){e.preventDefault();return false}
+    if((e.metaKey&&e.altKey&&(k==='I'||k==='i'))){e.preventDefault();return false}
+  },true);
+  document.addEventListener('contextmenu',function(e){e.preventDefault()},true);
+})();
+</script>
+</body>
+</html>

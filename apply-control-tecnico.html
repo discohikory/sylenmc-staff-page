@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SylenMC Network — Postulación Control Tecnico</title>
+<title>SylenMC Network — Postulación Control Técnico</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -41,7 +41,7 @@ button:disabled{opacity:.5}#msg{text-align:center;margin-top:12px;color:#2effa1}
 <div class="card"><label>13. ¿Por qué quieres ser Control Técnico en SylenMC?</label><textarea name="p13" required></textarea></div>
 <div class="card"><label>14. ¿Te comprometes a respetar normas, ser respetuoso e imparcial?</label><select name="p14" required><option value="">Elige...</option><option>Sí, me comprometo</option><option>No</option></select></div>
 <div class="card"><label>15. ¿Aceptas prueba técnica y entrevista por voz?</label><select name="p15" required><option value="">Elige...</option><option>Sí, acepto</option><option>No</option></select></div>
-<button id="btn" type="submit">Enviar postulación Control Tecnico</button>
+<button id="btn" type="submit">Enviar postulación Control Técnico</button>
 <p id="msg"></p>
 </form>
 <footer style="text-align:center;color:#a1a1ad;font-size:.8rem;margin:22px 0 10px">© 2026 SylenMC Network®. Todos los derechos reservados. Prohibida su reproducción sin autorización.<br>© 2026 Discohikorybrs® - Daniel Esteban Vera Fernandez. Todos los derechos reservados.</footer>
@@ -55,9 +55,9 @@ e.preventDefault();
 const btn=document.getElementById('btn'),msg=document.getElementById('msg');
 btn.disabled=true;btn.textContent='Enviando...';
 const fd=new FormData(e.target);const r={};for(let[k,v]of fd.entries())r[k]=v;
-const payload={rango:'Control Tecnico',nick_mc:r.p04,discord:r.p03,respuestas:r};
+const payload={rango:'Control Técnico',nick_mc:r.p04,discord:r.p03,respuestas:r};
 const {error}=await sb.from('sylenmc_applies').insert([payload]);
-if(error){msg.style.color='#ff8095';msg.textContent='Error: '+error.message;btn.disabled=false;btn.textContent='Enviar postulación Control Tecnico';}
+if(error){msg.style.color='#ff8095';msg.textContent='Error: '+error.message;btn.disabled=false;btn.textContent='Enviar postulación Control Técnico';}
 else{msg.style.color='#2effa1';msg.textContent='✅ Recibido en SylenMC Network. Te contactaremos por Discord.';e.target.reset();btn.textContent='Enviado ✅';}
 });
 </script>

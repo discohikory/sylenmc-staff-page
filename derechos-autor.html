@@ -21,7 +21,9 @@ body{background:#3a3a3e;font-family:Georgia,'Times New Roman',serif;color:var(--
 h1{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(1.5rem,4.5vw,2.4rem);letter-spacing:.06em;margin:14px 0 4px}
 .subtitle{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.15rem;color:#444}
 .seal-row{display:flex;justify-content:center;padding:18px 0 4px}
-.seal{width:190px;height:190px}
+.seal{width:min(190px,58vw);height:auto}
+.stamp-red{width:min(170px,52vw);height:auto;transform:rotate(-12deg);opacity:.92}
+svg text{user-select:none}
 .meta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font:600 .75rem Arial,sans-serif;color:#555;letter-spacing:.08em;border-top:1px solid #d8c88a;border-bottom:1px solid #d8c88a;padding:10px 2px;margin:14px 0 6px}
 .art{margin:22px 0}
 .art h2{font-family:'Cinzel',serif;font-size:1.02rem;letter-spacing:.05em;color:var(--gold);border-bottom:1px solid #e3d3a0;padding-bottom:6px;margin-bottom:10px}
@@ -35,12 +37,11 @@ h1{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(1.5rem,4.5vw,2.4re
 .sign .sig{font-family:'Brush Script MT','Segoe Script',cursive;font-size:2rem;color:#0b2a5b;transform:rotate(-3deg)}
 .sign .line{border-top:1px solid #333;margin-top:2px;padding-top:6px;font:700 .72rem Arial,sans-serif;letter-spacing:.1em}
 .sign .role{font:400 .72rem Arial,sans-serif;color:#555;margin-top:3px}
-.stamp-red{width:170px;height:170px;transform:rotate(-12deg);opacity:.92}
 .verify{font-family:'Courier New',monospace;font-size:.78rem;background:#f4efe2;border:1px dashed var(--gold2);border-radius:4px;padding:14px 16px;margin:18px 0;line-height:2}
 .verify b{font-family:Arial,sans-serif}
 .doc-foot{text-align:center;margin-top:26px;padding-top:16px;border-top:2px solid var(--gold2);font-size:.85rem;color:#333;line-height:2}
 .doc-foot b{color:#000}
-@media(max-width:640px){.sheet{padding:34px 22px}.meta{flex-direction:column}}
+@media(max-width:640px){.sheet{padding:30px 18px;outline-offset:3px}.meta{flex-direction:column}body{overflow-x:hidden}.topbar{justify-content:center}.doc-head .off{letter-spacing:.24em}h1{letter-spacing:.02em}.art p,.art li{text-align:left;overflow-wrap:break-word}.stamps{align-items:center;gap:20px}.sign{min-width:0;width:100%}}
 @media print{.topbar{display:none}body{background:#fff;padding:0}.sheet{box-shadow:none;outline:none;margin:0;max-width:none}}
 </style>
 </head>
@@ -66,14 +67,14 @@ h1{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(1.5rem,4.5vw,2.4re
       <defs><path id="ringGold" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/></defs>
       <circle cx="100" cy="100" r="97" fill="#fffdf7" stroke="#b8860b" stroke-width="3"/>
       <circle cx="100" cy="100" r="89" fill="none" stroke="#b8860b" stroke-width="1"/>
-      <text font-size="12" letter-spacing="2" fill="#8a6508" font-family="Cinzel,Georgia,serif" font-weight="700">
+      <text font-size="11" letter-spacing="1.5" fill="#8a6508" font-family="Cinzel,Georgia,serif" font-weight="700">
         <textPath href="#ringGold" textLength="448" lengthAdjust="spacingAndGlyphs">SYLENMC NETWORK • DOCUMENTO OFICIAL • © 2026 •</textPath>
       </text>
       <circle cx="100" cy="100" r="54" fill="none" stroke="#b8860b" stroke-width="2"/>
       <text x="100" y="105" text-anchor="middle" font-size="52" font-family="Cinzel,Georgia,serif" font-weight="900" fill="#8a6508">S</text>
       <text x="100" y="128" text-anchor="middle" font-size="14" letter-spacing="4" font-family="Cinzel,Georgia,serif" font-weight="700" fill="#8a6508">MC · 2026</text>
-      <text x="100" y="62" text-anchor="middle" font-size="12" fill="#b8860b">★ ★ ★</text>
-      <text x="100" y="152" text-anchor="middle" font-size="12" fill="#b8860b">★ ★ ★</text>
+      <text x="100" y="60" text-anchor="middle" font-size="12" fill="#b8860b">★ ★ ★</text>
+      <text x="100" y="143" text-anchor="middle" font-size="12" fill="#b8860b">★ ★ ★</text>
     </svg>
   </div>
 
@@ -118,7 +119,7 @@ h1{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(1.5rem,4.5vw,2.4re
   <div class="art">
     <h2 data-es="Artículo 5 — Usos prohibidos" data-en="Article 5 — Forbidden uses">Artículo 5 — Usos prohibidos</h2>
     <ul>
-      <li data-es="Copiar mapas, esquemáticas o builds del servidor a otros proyectos." data-en="Copy server maps, schematics or builds to other projects.">Copiar mapas, esquemáticas o builds del servidor a otros proyectos.</li>
+      <li data-es="Copiar mapas, esquemáticos (schematics) o builds del servidor a otros proyectos." data-en="Copy server maps, schematics or builds to other projects.">Copiar mapas, esquemáticos (schematics) o builds del servidor a otros proyectos.</li>
       <li data-es="Vender, revender o monetizar contenido, rangos o accesos de SylenMC fuera de su tienda oficial." data-en="Sell, resell or monetize SylenMC content, ranks or access outside its official store.">Vender, revender o monetizar contenido, rangos o accesos de SylenMC fuera de su tienda oficial.</li>
       <li data-es="Quitar marcas de agua, créditos o firmas del contenido oficial." data-en="Remove watermarks, credits or signatures from official content.">Quitar marcas de agua, créditos o firmas del contenido oficial.</li>
       <li data-es="Suplantar al staff o a las cuentas oficiales en cualquier plataforma." data-en="Impersonate staff or official accounts on any platform.">Suplantar al staff o a las cuentas oficiales en cualquier plataforma.</li>

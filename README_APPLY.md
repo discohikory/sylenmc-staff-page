@@ -45,8 +45,8 @@ Sube esta carpeta a GitHub Pages / Netlify (ya tienes `sylenmc-deploy`):
 - `apply-headadmin.html` → link Head Admin
 - `apply-manager.html` → link Manager
 - `apply-developer.html` → link Developer
-- `apply-control-tecnico.html` → link Control Tecnico
-- `apply-director-tecnico.html` → link Director Tecnico
+- `apply-control-tecnico.html` → link Control Técnico
+- `apply-director-tecnico.html` → link Director Técnico
   Ej base: `https://discohikory.github.io/sylenmc-staff-page/<archivo>`
 
 Mándalos en Discord:
@@ -58,3 +58,12 @@ Mándalos en Discord:
 Abre los .html doble clic > llena > Enviar > revisa que salga en Supabase.
 
 Si sale error `relation does not exist`, es que falta el paso 1.
+
+## 5. Revisar postulaciones (staff)
+
+Abre `revisar-applys.html` (link en el footer de la staff page):
+`https://discohikory.github.io/sylenmc-staff-page/revisar-applys.html`
+
+- Filtra por rango, busca por nick/Discord, expande respuestas, copia o borra.
+- **Evaluar con IA**: elige proveedor (Pollinations gratis sin clave · ChatGPT · Gemini · Claude · OpenRouter · personalizado), pega tu API key (queda solo en tu navegador) y pulsa "🤖 Evaluar con IA". Da puntaje 0-100, veredicto APTO/NO APTO/DUDOSO, aciertos, errores y recomendación.
+- Si la lectura falla por RLS: entra con tu cuenta de staff (Authentication → Users) o ejecuta el SQL de ayuda que muestra la página.
