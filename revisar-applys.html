@@ -72,6 +72,21 @@ footer{text-align:center;color:var(--muted);font-size:.78rem;margin:24px 0 10px;
 create policy "read_apply" on sylenmc_applies
 for select to anon, authenticated using (true);</pre>
   <button type="button" class="ghost" onclick="navigator.clipboard.writeText(document.getElementById('rlsSql').textContent).then(()=>alert('SQL copiado. Pégalo en Supabase → SQL Editor → Run.'))">📋 Copiar SQL</button></details>
+  <details style="margin-top:10px"><summary style="cursor:pointer;color:var(--blue);font-size:.85rem">▶ Primer uso: error "Could not find the table" (crear tabla + permisos)</summary>
+  <pre class="sql" id="setupSql">create table if not exists sylenmc_applies (
+  id bigint generated always as identity primary key,
+  created_at timestamptz default now(),
+  rango text not null,
+  nick_mc text,
+  discord text,
+  respuestas jsonb not null
+);
+alter table sylenmc_applies enable row level security;
+drop policy if exists "insert_apply" on sylenmc_applies;
+create policy "insert_apply" on sylenmc_applies for insert to anon, authenticated with check (true);
+drop policy if exists "read_apply" on sylenmc_applies;
+create policy "read_apply" on sylenmc_applies for select to anon, authenticated using (true);</pre>
+  <button type="button" class="ghost" onclick="navigator.clipboard.writeText(document.getElementById('setupSql').textContent).then(()=>alert('SQL copiado. Pégalo en Supabase → SQL Editor → Run.'))">📋 Copiar SQL completo</button></details>
 </div>
 
 <div class="card">
