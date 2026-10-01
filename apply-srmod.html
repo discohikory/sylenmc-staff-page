@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SylenMC Network — Postulación Sr. Mod</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--bg:#050507;--card:#111118;--border:#26262f;--muted:#a1a1ad}
+*{box-sizing:border-box}body{background:var(--bg);color:#fff;font-family:Inter,sans-serif;margin:0;padding:20px}
+.wrap{max-width:800px;margin:0 auto}
+h1{font-family:Cinzel,serif;text-align:center}h1 span{background:#000;border:1px solid #444;padding:0 12px;border-radius:10px}
+.sub{color:var(--muted);text-align:center;margin-bottom:20px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:14px}
+.card label{font-weight:700;display:block;margin-bottom:8px}
+.card small{color:var(--muted);display:block;margin-bottom:8px}
+input,textarea,select{width:100%;background:#000;border:1px solid #333;border-radius:10px;color:#fff;padding:12px;font-family:inherit;font-size:.9rem}
+textarea{min-height:80px;resize:vertical}
+button{width:100%;padding:15px;border-radius:100px;border:none;background:#fff;color:#000;font-weight:800;font-size:1rem;cursor:pointer;margin-top:10px}
+button:disabled{opacity:.5}#msg{text-align:center;margin-top:12px;color:#2effa1}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1><span>SYLEN</span>MC — SR. MOD</h1>
+<p class="sub">SylenMC Network · 15 preguntas · Postulación Sr. Mod · Liderar moderación, apelaciones y eventos · Tus respuestas las ve el equipo en Supabase</p>
+<form id="f">
+<div class="card"><label>1. Nombre o apodo</label><input name="p01" required placeholder="Ej: Discohikorybrs"></div>
+<div class="card"><label>2. Edad</label><input name="p02" type="number" min="10" max="99" required placeholder="Ej: 16"></div>
+<div class="card"><label>3. Discord (usuario + ID)</label><input name="p03" required placeholder="Ej: discohikorybrs | 123456789"></div>
+<div class="card"><label>4. Nick de Minecraft (Java/Bedrock)</label><input name="p04" required placeholder="Ej: Steve_24"></div>
+<div class="card"><label>5. País y horas al día activo</label><input name="p05" required placeholder="Ej: Colombia, 4 horas tardes"></div>
+
+<div class="card"><label>6. ¿Cuál es el trabajo de un Sr. Mod frente a un Mod normal?</label><textarea name="p06" required></textarea></div>
+<div class="card"><label>7. Llegan dos apelaciones contradictorias del mismo caso, ¿cómo decides?</label><textarea name="p07" required></textarea></div>
+<div class="card"><label>8. Dos Mods discuten en público, ¿cómo actúas?</label><textarea name="p08" required></textarea></div>
+<div class="card"><label>9. Organiza un evento: roles, seguridad y plan paso a paso</label><textarea name="p09" required></textarea></div>
+<div class="card"><label>10. Un Mod abusa de sus permisos, ¿qué haces paso a paso?</label><textarea name="p10" required></textarea></div>
+<div class="card"><label>11. ¿Cómo evalúas si un Trial Mod está listo para ascender?</label><textarea name="p11" required></textarea></div>
+<div class="card"><label>12. Caída del servidor en pleno evento, ¿cómo manejas a la comunidad?</label><textarea name="p12" required></textarea></div>
+<div class="card"><label>13. ¿Por qué quieres ser Sr. Mod en SylenMC?</label><textarea name="p13" required></textarea></div>
+<div class="card"><label>14. ¿Te comprometes a respetar normas, ser respetuoso e imparcial?</label><select name="p14" required><option value="">Elige...</option><option>Sí, me comprometo</option><option>No</option></select></div>
+<div class="card"><label>15. ¿Aceptas Quiz-Staff 80% y entrevista por voz?</label><select name="p15" required><option value="">Elige...</option><option>Sí, acepto</option><option>No</option></select></div>
+<button id="btn" type="submit">Enviar postulación Sr. Mod</button>
+<p id="msg"></p>
+</form>
+<footer style="text-align:center;color:#a1a1ad;font-size:.8rem;margin:22px 0 10px">© 2026 SylenMC Network®. Todos los derechos reservados. Prohibida su reproducción sin autorización.<br>© 2026 Discohikorybrs® - Daniel Esteban Vera Fernandez. Todos los derechos reservados.</footer>
+</div>
+<script>
+const URL="https://smwduccwkslhlavxjyxn.supabase.co";
+const ANON="sb_publishable__qUlEoYpMP_xw6MFfNw2lA_UuWvyka5";
+const sb=supabase.createClient(URL,ANON);
+document.getElementById('f').addEventListener('submit',async e=>{
+e.preventDefault();
+const btn=document.getElementById('btn'),msg=document.getElementById('msg');
+btn.disabled=true;btn.textContent='Enviando...';
+const fd=new FormData(e.target);const r={};for(let[k,v]of fd.entries())r[k]=v;
+const payload={rango:'Sr. Mod',nick_mc:r.p04,discord:r.p03,respuestas:r};
+const {error}=await sb.from('sylenmc_applies').insert([payload]);
+if(error){msg.style.color='#ff8095';msg.textContent='Error: '+error.message;btn.disabled=false;btn.textContent='Enviar postulación Sr. Mod';}
+else{msg.style.color='#2effa1';msg.textContent='✅ Recibido en SylenMC Network. Te contactaremos por Discord.';e.target.reset();btn.textContent='Enviado ✅';}
+});
+</script>
+</body>
+</html>

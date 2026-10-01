@@ -223,5 +223,18 @@ done();
 }).catch(function(){alert(LANG==='en'?'Could not generate the PDF.':'No se pudo generar el PDF.');done();});
 });
 </script>
+<script>
+/* anti-inspect: bloqueo basico F12 + atajos devtools + click derecho (disuasorio) */
+(function(){
+  document.addEventListener('keydown',function(e){
+    var k=e.key||'';
+    if(e.keyCode===123||k==='F12'){e.preventDefault();return false}
+    if((e.ctrlKey&&e.shiftKey&&(k==='I'||k==='J'||k==='C'||k==='i'||k==='j'||k==='c'))){e.preventDefault();return false}
+    if((e.ctrlKey&&(k==='U'||k==='u'))){e.preventDefault();return false}
+    if((e.metaKey&&e.altKey&&(k==='I'||k==='i'))){e.preventDefault();return false}
+  },true);
+  document.addEventListener('contextmenu',function(e){e.preventDefault()},true);
+})();
+</script>
 </body>
 </html>
