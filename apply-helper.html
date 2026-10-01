@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SylenMC Network — Postulación Helper</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--bg:#050507;--card:#111118;--border:#26262f;--muted:#a1a1ad}
+*{box-sizing:border-box}body{background:var(--bg);color:#fff;font-family:Inter,sans-serif;margin:0;padding:20px}
+.wrap{max-width:800px;margin:0 auto}
+h1{font-family:Cinzel,serif;text-align:center}h1 span{background:#000;border:1px solid #444;padding:0 12px;border-radius:10px}
+.sub{color:var(--muted);text-align:center;margin-bottom:20px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:14px}
+.card label{font-weight:700;display:block;margin-bottom:8px}
+.card small{color:var(--muted);display:block;margin-bottom:8px}
+input,textarea,select{width:100%;background:#000;border:1px solid #333;border-radius:10px;color:#fff;padding:12px;font-family:inherit;font-size:.9rem}
+textarea{min-height:80px;resize:vertical}
+button{width:100%;padding:15px;border-radius:100px;border:none;background:#fff;color:#000;font-weight:800;font-size:1rem;cursor:pointer;margin-top:10px}
+button:disabled{opacity:.5}#msg{text-align:center;margin-top:12px;color:#2effa1}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1><span>SYLEN</span>MC — HELPER</h1>
+<p class="sub">SylenMC Network · Postulación Helper · 25 preguntas · Tus respuestas las ve el equipo en Supabase</p>
+<form id="f">
+<div class="card"><label>1. Nombre o apodo</label><input name="p01" required placeholder="Ej: Discohikorybrs"></div>
+<div class="card"><label>2. Edad</label><input name="p02" type="number" min="10" max="99" required placeholder="Ej: 16"></div>
+<div class="card"><label>3. Discord (usuario + ID)</label><input name="p03" required placeholder="Ej: discohikorybrs | 123456789"></div>
+<div class="card"><label>4. Nick de Minecraft (Java/Bedrock)</label><input name="p04" required placeholder="Ej: Steve_24"></div>
+<div class="card"><label>5. País y horas al día activo</label><input name="p05" required placeholder="Ej: Colombia, 4 horas tardes"></div>
+<div class="card"><label>6. ¿Cuál es el trabajo de un Helper y qué tiene prohibido hacer?</label><textarea name="p06" required></textarea></div>
+<div class="card"><label>7. Escribe las 5 normas más importantes de SylenMC</label><textarea name="p07" required></textarea></div>
+<div class="card"><label>8. ¿Qué es spam, flood y toxicidad? Da un ejemplo de cada uno</label><textarea name="p08" required></textarea></div>
+<div class="card"><label>9. ¿Qué es un ticket y cómo se atiende de inicio a fin?</label><textarea name="p09" required></textarea></div>
+<div class="card"><label>10. ¿Qué es una prueba válida? ¿Qué debe tener?</label><textarea name="p10" required></textarea></div>
+<div class="card"><label>11. Usuario hace spam repitiendo mensajes, ¿qué haces paso a paso?</label><textarea name="p11" required></textarea></div>
+<div class="card"><label>12. Un usuario insulta a otro en chat público, ¿cómo actúas?</label><textarea name="p12" required></textarea></div>
+<div class="card"><label>13. Estás ayudando y te insultan a ti, ¿cómo reaccionas?</label><textarea name="p13" required></textarea></div>
+<div class="card"><label>14. Te preguntan algo que no sabes, ¿qué haces?</label><textarea name="p14" required></textarea></div>
+<div class="card"><label>15. Crees que alguien usa hacks pero no tienes pruebas, ¿lo sancionas?</label><textarea name="p15" required></textarea></div>
+<div class="card"><label>16. Tu amigo rompe una norma, ¿lo ayudas a evitar sanción?</label><textarea name="p16" required></textarea></div>
+<div class="card"><label>17. Un usuario perdió items por bug, ¿qué haces tú como Helper?</label><textarea name="p17" required></textarea></div>
+<div class="card"><label>18. Hay evento y no hay Mods conectados, ¿qué haces?</label><textarea name="p18" required></textarea></div>
+<div class="card"><label>19. Ves a otro Helper haciendo mal su trabajo, ¿qué haces?</label><textarea name="p19" required></textarea></div>
+<div class="card"><label>20. Te llegan 3 tickets a la vez, ¿en qué orden los atiendes?</label><textarea name="p20" required></textarea></div>
+<div class="card"><label>21. ¿Por qué quieres ser Helper en SylenMC?</label><textarea name="p21" required></textarea></div>
+<div class="card"><label>22. ¿Cómo te comportas trabajando con otros Staff?</label><textarea name="p22" required></textarea></div>
+<div class="card"><label>23. ¿Qué harías si no puedes conectarte una semana?</label><textarea name="p23" required></textarea></div>
+<div class="card"><label>24. ¿Te comprometes a respetar normas, ser respetuoso e imparcial?</label><select name="p24" required><option value="">Elige...</option><option>Sí, me comprometo</option><option>No</option></select></div>
+<div class="card"><label>25. ¿Aceptas examen Quiz-Staff 60% y entrevista por voz?</label><select name="p25" required><option value="">Elige...</option><option>Sí, acepto</option><option>No</option></select></div>
+<button id="btn" type="submit">Enviar postulación Helper</button>
+<p id="msg"></p>
+</form>
+<footer style="text-align:center;color:#a1a1ad;font-size:.8rem;margin:22px 0 10px">© 2026 SylenMC Network®. Todos los derechos reservados. Prohibida su reproducción sin autorización.<br>© 2026 Discohikorybrs® - Daniel Esteban Vera Fernandez. Todos los derechos reservados.</footer>
+</div>
+<script>
+const URL="https://smwduccwkslhlavxjyxn.supabase.co";
+const ANON="sb_publishable__qUlEoYpMP_xw6MFfNw2lA_UuWvyka5";
+const sb=supabase.createClient(URL,ANON);
+document.getElementById('f').addEventListener('submit',async e=>{
+e.preventDefault();
+const btn=document.getElementById('btn'),msg=document.getElementById('msg');
+btn.disabled=true;btn.textContent='Enviando...';
+const fd=new FormData(e.target);const r={};for(let[k,v]of fd.entries())r[k]=v;
+const payload={rango:'Helper',nick_mc:r.p04,discord:r.p03,respuestas:r};
+const {error}=await sb.from('sylenmc_applies').insert([payload]);
+if(error){msg.style.color='#ff8095';msg.textContent='Error: '+error.message+' (crea la tabla ver README_APPLY.md)';btn.disabled=false;btn.textContent='Enviar postulación Helper';}
+else{msg.style.color='#2effa1';msg.textContent='✅ Recibido en SylenMC Network. Te contactaremos por Discord.';e.target.reset();btn.textContent='Enviado ✅';}
+});
+</script>
+</body>
+</html>
