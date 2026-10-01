@@ -38,10 +38,9 @@ Sube esta carpeta a GitHub Pages / Netlify (ya tienes `sylenmc-deploy`):
 - `apply-jrmod.html` → link Jr Mod
   Ej: `https://discohikory.github.io/sylenmc-staff-page/apply-jrmod.html`
 - `apply-soporte.html` → link Soporte Dc
-- `apply-trialmod.html` → link Trial Mod
 - `apply-mod.html` → link Moderador
 - `apply-srmod.html` → link Sr. Mod
-- `apply-trialadmin.html` → link Trial Admin
+- `apply-jradmin.html` → link Jr Admin
 - `apply-admin.html` → link Admin
 - `apply-headadmin.html` → link Head Admin
 - `apply-manager.html` → link Manager
