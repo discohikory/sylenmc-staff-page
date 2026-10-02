@@ -1,6 +1,6 @@
-# 🖤 SylenMC Network — Staff Page
+# 🖤 DragoMc Network — Staff Page
 
-Página oficial del Staff de **SylenMC Network** — Edición Black Cinematic.
+Página oficial del Staff de **DragoMc Network** — Edición Black Cinematic.
 Inspirada en SkyLith Network.
 
 ## 🌐 Ver online (GitHub Pages)

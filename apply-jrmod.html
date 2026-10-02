@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SylenMC Network — Postulación Jr Mod</title>
+<title>DragoMc Network — Postulación Jr Mod</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -21,15 +21,15 @@ button:disabled{opacity:.5}#msg{text-align:center;margin-top:12px;color:#2effa1}
 </head>
 <body>
 <div class="wrap">
-<h1><span>SYLEN</span>MC — JR MOD</h1>
-<p class="sub">SylenMC Network · Postulación Jr Mod · 25 preguntas · Requiere experiencia previa / Helper</p>
+<h1><span>DRAGO</span>MC — JR MOD</h1>
+<p class="sub">DragoMc Network · Postulación Jr Mod · 25 preguntas · Requiere experiencia previa / Helper</p>
 <form id="f">
 <div class="card"><label>1. Nombre o apodo</label><input name="p01" required></div>
 <div class="card"><label>2. Edad</label><input name="p02" type="number" required></div>
 <div class="card"><label>3. Discord (usuario + ID)</label><input name="p03" required></div>
 <div class="card"><label>4. Nick de Minecraft</label><input name="p04" required></div>
 <div class="card"><label>5. País y horas al día + experiencia previa Staff</label><textarea name="p05" required placeholder="Ej: Perú, 5h, fui Helper 2 meses en..."></textarea></div>
-<div class="card"><label>6. Diferencia entre Helper, Jr Mod y Mod en SylenMC</label><textarea name="p06" required></textarea></div>
+<div class="card"><label>6. Diferencia entre Helper, Jr Mod y Mod en DragoMc</label><textarea name="p06" required></textarea></div>
 <div class="card"><label>7. Explica mute, kick, tempban y ban permanente con ejemplo</label><textarea name="p07" required></textarea></div>
 <div class="card"><label>8. Video claro de hacks de un usuario normal, ¿qué haces paso a paso?</label><textarea name="p08" required></textarea></div>
 <div class="card"><label>9. Dos usuarios peleando e insultándose en público, ¿cómo los separas?</label><textarea name="p09" required></textarea></div>
@@ -44,7 +44,7 @@ button:disabled{opacity:.5}#msg{text-align:center;margin-top:12px;color:#2effa1}
 <div class="card"><label>18. Usuario pierde items por sanción injusta de otro Staff, ¿cómo lo reparas?</label><textarea name="p18" required></textarea></div>
 <div class="card"><label>19. Detectas posible dupeo pero no hay Admin conectado, ¿qué haces en 5 min?</label><textarea name="p19" required></textarea></div>
 <div class="card"><label>20. ¿Cómo documentas un caso grave para que otro Staff lo entienda?</label><textarea name="p20" required></textarea></div>
-<div class="card"><label>21. ¿Por qué quieres subir a Jr Mod en SylenMC?</label><textarea name="p21" required></textarea></div>
+<div class="card"><label>21. ¿Por qué quieres subir a Jr Mod en DragoMc?</label><textarea name="p21" required></textarea></div>
 <div class="card"><label>22. ¿Cómo trabajarías con Helpers a tu cargo?</label><textarea name="p22" required></textarea></div>
 <div class="card"><label>23. Si tomas decisión justa pero impopular y te funan, ¿cómo reaccionas?</label><textarea name="p23" required></textarea></div>
 <div class="card"><label>24. ¿Te comprometes a imparcialidad, actividad y confidencialidad?</label><select name="p24" required><option value="">Elige...</option><option>Sí, me comprometo</option><option>No</option></select></div>
@@ -52,7 +52,7 @@ button:disabled{opacity:.5}#msg{text-align:center;margin-top:12px;color:#2effa1}
 <button id="btn" type="submit">Enviar postulación Jr Mod</button>
 <p id="msg"></p>
 </form>
-<footer style="text-align:center;color:#a1a1ad;font-size:.8rem;margin:22px 0 10px">© 2026 SylenMC Network®. Todos los derechos reservados. Prohibida su reproducción sin autorización.<br>© 2026 Discohikorybrs® - Daniel Esteban Vera Fernandez. Todos los derechos reservados.</footer>
+<footer style="text-align:center;color:#a1a1ad;font-size:.8rem;margin:22px 0 10px">© 2026 DragoMc Network®. Todos los derechos reservados. Prohibida su reproducción sin autorización.<br>© 2026 Discohikorybrs® - Daniel Esteban Vera Fernandez. Todos los derechos reservados.</footer>
 </div>
 <script>
 const URL="https://smwduccwkslhlavxjyxn.supabase.co";
@@ -64,9 +64,9 @@ const btn=document.getElementById('btn'),msg=document.getElementById('msg');
 btn.disabled=true;btn.textContent='Enviando...';
 const fd=new FormData(e.target);const r={};for(let[k,v]of fd.entries())r[k]=v;
 const payload={rango:'Jr Mod',nick_mc:r.p04,discord:r.p03,respuestas:r};
-const {error}=await sb.from('sylenmc_applies').insert([payload]);
+const {error}=await sb.from('dragomc_applies').insert([payload]);
 if(error){msg.style.color='#ff8095';msg.textContent='Error: '+error.message;btn.disabled=false;btn.textContent='Enviar postulación Jr Mod';}
-else{msg.style.color='#2effa1';msg.textContent='✅ Recibido en SylenMC Network.';e.target.reset();btn.textContent='Enviado ✅';}
+else{msg.style.color='#2effa1';msg.textContent='✅ Recibido en DragoMc Network.';e.target.reset();btn.textContent='Enviado ✅';}
 });
 </script>
 </body>

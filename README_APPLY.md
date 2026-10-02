@@ -1,4 +1,4 @@
-# SylenMC Network — Formularios Apply (todos los rangos bajo Head-Manager)
+# DragoMc Network — Formularios Apply (todos los rangos bajo Head-Manager)
 
 Tú mandas un link, ellos responden, tú ves las respuestas en Supabase.
 
@@ -7,7 +7,7 @@ Tú mandas un link, ellos responden, tú ves las respuestas en Supabase.
 Ve a Supabase Dashboard > SQL Editor > pega esto > Run:
 
 ```sql
-create table if not exists sylenmc_applies (
+create table if not exists dragomc_applies (
   id bigint generated always as identity primary key,
   created_at timestamptz default now(),
   rango text not null,
@@ -15,19 +15,28 @@ create table if not exists sylenmc_applies (
   discord text,
   respuestas jsonb not null
 );
-alter table sylenmc_applies enable row level security;
-drop policy if exists "insert_apply" on sylenmc_applies;
-create policy "insert_apply" on sylenmc_applies for insert to anon, authenticated with check (true);
-drop policy if exists "read_apply" on sylenmc_applies;
-create policy "read_apply" on sylenmc_applies for select to authenticated using (true);
+alter table dragomc_applies enable row level security;
+drop policy if exists "insert_apply" on dragomc_applies;
+create policy "insert_apply" on dragomc_applies for insert to anon, authenticated with check (true);
+drop policy if exists "read_apply" on dragomc_applies;
+create policy "read_apply" on dragomc_applies for select to authenticated using (true);
 ```
 
 ## 2. Ver respuestas
 
-Supabase > Table Editor > `sylenmc_applies`
+Supabase > Table Editor > `dragomc_applies`
 Ahí ves: fecha, rango, nick, discord y columna `respuestas` (Helper/Jr Mod: 25 · resto: 15).
 
 Tip: crea una vista o exporta a CSV desde ahí.
+
+## 2b. Tabla nueva `dragomc_applies` (rebrand)
+
+Los formularios ahora escriben en `dragomc_applies`. Ejecuta el SQL de la sección 1 (ya actualizado) para crearla. Para migrar postulaciones viejas:
+
+```sql
+insert into dragomc_applies (created_at, rango, nick_mc, discord, respuestas)
+select created_at, rango, nick_mc, discord, respuestas from sylenmc_applies;
+```
 
 ## 3. Mandar links
 
@@ -50,8 +59,8 @@ Sube esta carpeta a GitHub Pages / Netlify (ya tienes `sylenmc-deploy`):
   Ej base: `https://discohikory.github.io/sylenmc-staff-page/<archivo>`
 
 Mándalos en Discord:
-`Postula Helper SylenMC: <link-helper>`
-`Postula Jr Mod SylenMC: <link-jrmod>`
+`Postula Helper DragoMc: <link-helper>`
+`Postula Jr Mod DragoMc: <link-jrmod>`
 
 ## 4. Probar local
 

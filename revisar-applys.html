@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SylenMC Network — Revisar Postulaciones (Staff)</title>
+<title>DragoMc Network — Revisar Postulaciones (Staff)</title>
 <meta name="robots" content="noindex,nofollow">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -50,7 +50,7 @@ footer{text-align:center;color:var(--muted);font-size:.78rem;margin:24px 0 10px;
 </head>
 <body>
 <div class="wrap">
-<h1><span>SYLEN</span>MC — REVISAR POSTULACIONES</h1>
+<h1><span>DRAGO</span>MC — REVISAR POSTULACIONES</h1>
 <p class="sub">Página privada del staff · No compartas este link · Las claves IA se guardan solo en tu navegador</p>
 <div class="warn">🔒 Las respuestas las protege Supabase (RLS). Si ves error de lectura, ejecuta el SQL de ayuda o entra con tu cuenta de staff.</div>
 
@@ -68,12 +68,12 @@ footer{text-align:center;color:var(--muted);font-size:.78rem;margin:24px 0 10px;
   </div>
   <small class="hint" id="connMsg">Sin conectar. El login usa Supabase Auth (crea tu usuario en Dashboard → Authentication → Users).</small>
   <details style="margin-top:10px"><summary style="cursor:pointer;color:var(--blue);font-size:.85rem">¿Error de lectura? SQL para permitir ver postulaciones</summary>
-  <pre class="sql" id="rlsSql">drop policy if exists "read_apply" on sylenmc_applies;
-create policy "read_apply" on sylenmc_applies
+  <pre class="sql" id="rlsSql">drop policy if exists "read_apply" on dragomc_applies;
+create policy "read_apply" on dragomc_applies
 for select to anon, authenticated using (true);</pre>
   <button type="button" class="ghost" onclick="navigator.clipboard.writeText(document.getElementById('rlsSql').textContent).then(()=>alert('SQL copiado. Pégalo en Supabase → SQL Editor → Run.'))">📋 Copiar SQL</button></details>
   <details style="margin-top:10px"><summary style="cursor:pointer;color:var(--blue);font-size:.85rem">▶ Primer uso: error "Could not find the table" (crear tabla + permisos)</summary>
-  <pre class="sql" id="setupSql">create table if not exists sylenmc_applies (
+  <pre class="sql" id="setupSql">create table if not exists dragomc_applies (
   id bigint generated always as identity primary key,
   created_at timestamptz default now(),
   rango text not null,
@@ -81,11 +81,11 @@ for select to anon, authenticated using (true);</pre>
   discord text,
   respuestas jsonb not null
 );
-alter table sylenmc_applies enable row level security;
-drop policy if exists "insert_apply" on sylenmc_applies;
-create policy "insert_apply" on sylenmc_applies for insert to anon, authenticated with check (true);
-drop policy if exists "read_apply" on sylenmc_applies;
-create policy "read_apply" on sylenmc_applies for select to anon, authenticated using (true);</pre>
+alter table dragomc_applies enable row level security;
+drop policy if exists "insert_apply" on dragomc_applies;
+create policy "insert_apply" on dragomc_applies for insert to anon, authenticated with check (true);
+drop policy if exists "read_apply" on dragomc_applies;
+create policy "read_apply" on dragomc_applies for select to anon, authenticated using (true);</pre>
   <button type="button" class="ghost" onclick="navigator.clipboard.writeText(document.getElementById('setupSql').textContent).then(()=>alert('SQL copiado. Pégalo en Supabase → SQL Editor → Run.'))">📋 Copiar SQL completo</button></details>
 </div>
 
@@ -121,7 +121,7 @@ create policy "read_apply" on sylenmc_applies for select to anon, authenticated 
 
 <div id="list"><p class="sub">Conéctate para ver las postulaciones.</p></div>
 
-<footer>© 2026 SylenMC Network®. Todos los derechos reservados. Prohibida su reproducción sin autorización.<br>© 2026 Discohikorybrs® - Daniel Esteban Vera Fernandez. Todos los derechos reservados.</footer>
+<footer>© 2026 DragoMc Network®. Todos los derechos reservados. Prohibida su reproducción sin autorización.<br>© 2026 Discohikorybrs® - Daniel Esteban Vera Fernandez. Todos los derechos reservados.</footer>
 </div>
 
 <script>
@@ -131,12 +131,12 @@ function conn(){return {url:document.getElementById('sbUrl').value.trim(),key:do
 function client(){var c=conn();sb=supabase.createClient(c.url,c.key);return sb;}
 document.getElementById('aiProv').addEventListener('change',function(){
 document.getElementById('customRow').classList.toggle('hidden',this.value!=='custom');
-var k='sylenmc_ai_'+this.value;
+var k='dragomc_ai_'+this.value;
 document.getElementById('aiKey').value=localStorage.getItem(k+'_key')||'';
 document.getElementById('aiModel').value=localStorage.getItem(k+'_model')||'';
 });
-document.getElementById('aiKey').addEventListener('input',function(){localStorage.setItem('sylenmc_ai_'+document.getElementById('aiProv').value+'_key',this.value);});
-document.getElementById('aiModel').addEventListener('input',function(){localStorage.setItem('sylenmc_ai_'+document.getElementById('aiProv').value+'_model',this.value);});
+document.getElementById('aiKey').addEventListener('input',function(){localStorage.setItem('dragomc_ai_'+document.getElementById('aiProv').value+'_key',this.value);});
+document.getElementById('aiModel').addEventListener('input',function(){localStorage.setItem('dragomc_ai_'+document.getElementById('aiProv').value+'_model',this.value);});
 document.getElementById('btnLogin').addEventListener('click',async function(){
 var m=document.getElementById('connMsg');m.textContent='Entrando...';
 try{client();var r=await sb.auth.signInWithPassword({email:document.getElementById('sbMail').value.trim(),password:document.getElementById('sbPass').value});
@@ -148,7 +148,7 @@ document.getElementById('fQ').addEventListener('input',render);
 document.getElementById('fRango').addEventListener('change',render);
 async function load(){
 var m=document.getElementById('connMsg');m.textContent='Cargando postulaciones...';
-try{var r=await sb.from('sylenmc_applies').select('*').order('created_at',{ascending:false}).limit(300);
+try{var r=await sb.from('dragomc_applies').select('*').order('created_at',{ascending:false}).limit(300);
 if(r.error)throw r.error;DATA=r.data||[];m.textContent='✅ '+DATA.length+' postulaciones cargadas.';
 var rs={};DATA.forEach(function(a){rs[a.rango]=(rs[a.rango]||0)+1;});
 var fr=document.getElementById('fRango'),cur=fr.value;fr.innerHTML='<option value="">Todos los rangos</option>'+Object.keys(rs).sort().map(function(k){return '<option value="'+k+'">'+k+' ('+rs[k]+')</option>'}).join('');fr.value=cur;
@@ -174,11 +174,11 @@ function copiar(id){var a=DATA.find(function(x){return x.id===id});if(!a)return;
 var t='['+a.rango+'] '+a.nick_mc+' ('+a.discord+')\n'+Object.keys(a.respuestas||{}).filter(function(k){return/^p\d+$/.test(k)}).sort().map(function(k){return k.toUpperCase()+': '+a.respuestas[k]}).join('\n');
 navigator.clipboard.writeText(t).then(function(){alert('Copiado.');});}
 async function borrar(id){if(!confirm('¿Borrar esta postulación?'))return;
-try{var r=await sb.from('sylenmc_applies').delete().eq('id',id);if(r.error)throw r.error;DATA=DATA.filter(function(x){return x.id!==id});render();}
+try{var r=await sb.from('dragomc_applies').delete().eq('id',id);if(r.error)throw r.error;DATA=DATA.filter(function(x){return x.id!==id});render();}
 catch(e){alert('No se pudo borrar: '+e.message+' (crea policy delete para authenticated en Supabase).');}}
 function promptFor(a){
 var qa=Object.keys(a.respuestas||{}).filter(function(k){return/^p\d+$/.test(k)}).sort().map(function(k){return k.toUpperCase()+': '+(a.respuestas[k]||'')}).join('\n');
-return 'Eres evaluador del staff de SylenMC Network, servidor de Minecraft. Rango postulado: '+a.rango+'. Nick: '+(a.nick_mc||'?')+'. Preguntas y respuestas del candidato:\n'+qa+'\n\nEvalúa y responde SOLO con JSON válido, sin texto extra: {"score":0-100,"verdict":"APTO"|"NO APTO"|"DUDOSO","good":["max 3 aciertos"],"bad":["max 3 errores o riesgos"],"note":"recomendación de 1 línea"}. Español, texto plano, sin markdown.';
+return 'Eres evaluador del staff de DragoMc Network, servidor de Minecraft. Rango postulado: '+a.rango+'. Nick: '+(a.nick_mc||'?')+'. Preguntas y respuestas del candidato:\n'+qa+'\n\nEvalúa y responde SOLO con JSON válido, sin texto extra: {"score":0-100,"verdict":"APTO"|"NO APTO"|"DUDOSO","good":["max 3 aciertos"],"bad":["max 3 errores o riesgos"],"note":"recomendación de 1 línea"}. Español, texto plano, sin markdown.';
 }
 async function callAI(prov,key,model,prompt){
 model=model||DEF_MODEL[prov]||'';
@@ -195,7 +195,7 @@ var url=prov==='openai'?'https://api.openai.com/v1/chat/completions':(prov==='op
 if(!url)throw new Error('Falta la URL del proveedor personalizado.');
 if(!key&&prov!=='custom')throw new Error('Falta API key.');
 var h={'Content-Type':'application/json'};if(key)h['Authorization']='Bearer '+key;
-if(prov==='openrouter'){h['HTTP-Referer']='https://discohikory.github.io/sylenmc-staff-page/';h['X-Title']='SylenMC Review';}
+if(prov==='openrouter'){h['HTTP-Referer']='https://discohikory.github.io/sylenmc-staff-page/';h['X-Title']='DragoMc Review';}
 var o=await fetch(url,{method:'POST',headers:h,body:JSON.stringify({model:model,messages:[{role:'user',content:prompt}],temperature:0.3})});
 var oj=await o.json();if(!o.ok)throw new Error(((oj.error&&(oj.error.message||oj.error.code)))||('HTTP '+o.status));
 if(oj.choices&&oj.choices[0]&&oj.choices[0].message)return oj.choices[0].message.content;
